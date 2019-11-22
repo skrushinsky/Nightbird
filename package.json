@@ -1,0 +1,24 @@
+{
+  "name": "nightbird",
+  "version": "1.0.0",
+  "description": "Musical Guidebook",
+  "private": true,
+  "scripts": {
+    "start": "gulp serve",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "music",
+    "radio"
+  ],
+  "author": "Sergey Krushinsky",
+  "license": "ISC",
+  "dependencies": {
+    "uikit": "^3.2.3"
+  },
+  "devDependencies": {
+    "del": "^5.1.0",
+    "gulp": "^4.0.2",
+    "gulp-server-livereload": "^1.9.2"
+  }
+}
