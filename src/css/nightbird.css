@@ -1,0 +1,67 @@
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+h1, h2, h3, h4 {
+    font-family: "Roboto" !important;
+}
+
+h4 {
+    margin-bottom: 1.2em;
+}
+
+#section {
+  flex: 1 0 auto;
+  width: 95%;
+}
+
+.brand-logo {
+    font-family: "Roboto-Black" !important;
+    font-weight: bold;
+    font-size: 42px !important;
+    letter-spacing: 0.3em;
+    font-stretch: expanded;
+    font-variant: small-caps;
+}
+
+nav .brand-logo {
+    padding-left: 10px;
+}
+
+div.footer-copyright {
+    padding: 10px !important;
+    margin: 0;
+}
+
+div.footer-copyright p {
+    padding: 0;
+    margin: 0;
+}
+
+
+ul.horizontal {
+    list-style-type: none;
+}
+
+ul.horizontal li {
+  float: left;
+}
+
+ul.horizontal li a {
+  display: block;
+  text-align: center;
+  padding: 0px;
+  text-decoration: none;
+}
+
+.collection-item .title {
+    text-transform: uppercase !important;
+    font-family: "Roboto";
+}
+
+.menu a {
+    text-transform: uppercase !important;
+    font-size: 1.2em;
+}

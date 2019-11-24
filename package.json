@@ -14,7 +14,9 @@
   "author": "Sergey Krushinsky",
   "license": "ISC",
   "dependencies": {
-    "uikit": "^3.2.3"
+    "material-design-icons": "^3.0.1",
+    "materialize-css": "^1.0.0-rc.2",
+    "roboto-fontface": "^0.10.0"
   },
   "devDependencies": {
     "del": "^5.1.0",
