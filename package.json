@@ -1,12 +1,12 @@
 {
   "name": "nightbird",
   "version": "1.0.0",
-  "description": "Musical Guidebook",
-  "private": true,
+  "description": "Your guide to music",
+  "main": "main.js",
   "scripts": {
-    "start": "gulp serve",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron ."
   },
+  "private": true,
   "keywords": [
     "music",
     "radio"
@@ -19,8 +19,6 @@
     "roboto-fontface": "^0.10.0"
   },
   "devDependencies": {
-    "del": "^5.1.0",
-    "gulp": "^4.0.2",
-    "gulp-server-livereload": "^1.9.2"
+    "electron": "^7.1.2"
   }
 }
