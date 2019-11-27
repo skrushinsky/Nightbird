@@ -62,5 +62,5 @@ app.on('activate', function() {
 // code. You can also put them in separate files and require them here.
 
 ipcMain.on('get-section', (event, sectionName) => {
-	event.sender.send('set-section', sectionName);
+	event.sender.send('set-section', sectionName, {foo: 'bar'});
 })

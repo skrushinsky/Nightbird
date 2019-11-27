@@ -4,7 +4,7 @@
 <head>
 	<title>Nightbird</title>
 	<meta charset="utf-8">
-	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'">
     <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="css/materialize.min.css" />
@@ -61,6 +61,7 @@
 	</footer>
 	<script src="js/jquery.js"></script>
 	<script src="js/materialize.min.js"></script>
+	<script src="js/nunjucks.js"></script>
 	<script src="js/renderer.js"></script>
 </body>
 

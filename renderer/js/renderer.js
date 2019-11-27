@@ -5,25 +5,40 @@
 // selectively enable features needed in the rendering
 // process.
 const sectionNames = ['Genres', 'Artists', 'Albums', 'Tracks', 'Stations'];
-let currentSection = 'Genres';
+let currentSection = null;
 
+nunjucks.configure('views', {
+    autoescape: true
+});
 
-window.ipc.on('set-section', (event, data) => {
-	$('#section').html(data);
-})
-
-
-function loadSection(sectionName) {
-    window.ipc.send('get-section', sectionName);
-    //
-    // const elem = $('#section');
-    //
-    // const navBar = document.getElementsByTagName('nav')[0];
-    // const xPath = `//a[contains(text(),'${sectionName}')]`;
+function loadTemplate(fileName, context) {
+    return new Promise((resolve, reject) => {
+        nunjucks.render(fileName, context, (err, res) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(res);
+            }
+        });
+    });
 }
+
+
+function loadSection(sectionName, data) {
+    const tmpl = `${sectionName.toLowerCase()}.html`;
+    loadTemplate(tmpl, data).then(content => {
+        $('#section').html(content);
+    });
+}
+
+
+window.ipc.on('set-section', (event, sectionName, data) => {
+    loadSection(sectionName, data);
+})
 
 
 $(document).ready(() => {
     $('.sidenav').sidenav();
-    loadSection(currentSection);
+    window.ipc.send('get-section', 'Genres');
+
 })
