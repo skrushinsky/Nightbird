@@ -9,7 +9,7 @@ let currentSection = null;
 const ipcRenderer = window.ipcRenderer;
 
 nunjucks.configure('views', {
-    autoescape: true
+    autoescape: false
 });
 
 
@@ -28,7 +28,6 @@ function renderTemplate(fileName, context) {
 ipcRenderer.on('set-section', (event, sectionName, data) => {
     console.debug('set-section event');
     const genres = JSON.parse(data);
-    //console.log('Got data: %s', JSON.stringify(genres, null, '  '));
     renderTemplate(`${sectionName.toLowerCase()}.html`, genres);
 });
 
@@ -38,7 +37,6 @@ ipcRenderer.on('show-error', (event, err) => {
     renderTemplate('error.html', {
         message: err
     });
-
 });
 
 
