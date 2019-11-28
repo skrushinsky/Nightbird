@@ -78,12 +78,4 @@ ipcMain.on('get-section', (event, sectionName) => {
     console.log(err);
     event.sender.send('show-error', err);
   });
-
-	// try {
-	// 	const data = await fetchGenres();
-	// 	event.sender.send('set-section', sectionName, null, data);
-	// } catch (err) {
-	// 	console.log(err);
-	// 	event.sender.send('set-section', sectionName, err, null);
-	// }
 })
