@@ -1,4 +1,6 @@
 const request = require('request-promise-native');
+const cheerio = require('cheerio');
+const truncate = require('html-truncate');
 const API_ROOT = 'https://api.napster.com/v2.2';
 const IMG_ROOT = 'https://api.napster.com/imageserver';
 const HEADERS = {
@@ -7,12 +9,24 @@ const HEADERS = {
 }
 
 
+function sanitize(html) {
+	const $ = cheerio.load(html);
+	$('a[href^="http"]').attr('target','_blank');
+	return truncate($.root().html(), 150);
+}
+
+
 function handleGenre(raw) {
     const allowed = ['id', 'name', 'description'];
     const filtered = Object.keys(raw)
         .filter(key => allowed.includes(key))
         .reduce((obj, key) => {
-            obj[key] = raw[key];
+			const val = raw[key];
+			if (key === 'description') {
+				obj[key] = sanitize(val);
+			} else {
+				obj[key] = val;
+			}
             return obj;
         }, {});
 	filtered.image = `${IMG_ROOT}/images/${filtered.id}/161x64.jpg`;

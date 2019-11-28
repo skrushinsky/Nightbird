@@ -5,8 +5,11 @@ const {
 	ipcMain
 } = require('electron');
 const path = require('path');
+const open = require('open');
+
 const appTitle = "Nightbird";
 const { fetchGenres } = require('./main/sections');
+
 
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 
