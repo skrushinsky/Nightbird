@@ -9,40 +9,42 @@ let currentSection = null;
 const ipcRenderer = window.ipcRenderer;
 
 nunjucks.configure('views', {
-    autoescape: false
+	autoescape: false
 });
 
 
-function renderTemplate(fileName, context) {
-    console.debug('Rendering template %s', fileName);
+function renderTemplate(fileName, context, section='#section') {
+	console.debug('Rendering template %s', fileName);
 	console.debug('context: %s', JSON.stringify(context, null, '  '));
-    nunjucks.render(fileName, {genres: context}, (err, res) => {
-        if (err) {
-            console.error('Error rendering template: %s', err);
-        } else {
-            $('#section').html(res);
-        }
-    });
+	nunjucks.render(fileName, {
+		genres: context
+	}, (err, res) => {
+		if (err) {
+			console.error('Error rendering template: %s', err);
+		} else {
+			$(section).html(res);
+		}
+	});
 }
 
 ipcRenderer.on('set-section', (event, sectionName, data) => {
-    console.debug('set-section event');
-    const genres = JSON.parse(data);
-    renderTemplate(`${sectionName.toLowerCase()}.html`, genres);
+	console.debug('set-section event');
+	const genres = JSON.parse(data);
+	renderTemplate(`${sectionName.toLowerCase()}.html`, genres);
 });
 
 ipcRenderer.on('show-error', (event, err) => {
-    console.debug('show-error event');
-    console.log('Error: %s', JSON.stringify(err, null, '  '));
-    renderTemplate('error.html', {
-        message: err
-    });
+	console.debug('show-error event');
+	console.log('Error: %s', JSON.stringify(err, null, '  '));
+	renderTemplate('error.html', {
+		message: err
+	});
 });
 
 
 
 $(document).ready(() => {
-    $('.sidenav').sidenav();
-    ipcRenderer.send('get-section', 'Genres');
+	$('.sidenav').sidenav();
+	ipcRenderer.send('get-section', 'Genres');
 
 })

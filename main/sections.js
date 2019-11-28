@@ -12,7 +12,7 @@ const HEADERS = {
 function sanitize(html) {
 	const $ = cheerio.load(html);
 	$('a[href^="http"]').attr('target','_blank');
-	return truncate($.root().html(), 150);
+	return truncate($.root().html(), 300);
 }
 
 
