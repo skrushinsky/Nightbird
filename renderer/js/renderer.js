@@ -6,39 +6,45 @@
 // process.
 const sectionNames = ['Genres', 'Artists', 'Albums', 'Tracks', 'Stations'];
 let currentSection = null;
+const ipcRenderer = window.ipcRenderer;
 
 nunjucks.configure('views', {
-    autoescape: true
+	autoescape: true
 });
 
-function loadTemplate(fileName, context) {
-    return new Promise((resolve, reject) => {
-        nunjucks.render(fileName, context, (err, res) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(res);
-            }
-        });
-    });
+
+function renderTemplate(fileName, context) {
+	console.debug('Rendering template %s', fileName);
+	nunjucks.render(fileName, context, (err, res) => {
+		if (err) {
+			console.error('Error rendering template: %s', err);
+		} else {
+			$('#section').html(res);
+		}
+	});
 }
 
+ipcRenderer.on('set-section', (event, sectionName, data) => {
+	console.debug('set-section event');
+  console.log('Got data: %s', data);
+  const genres = JSON.parse(data);
+	//console.log('Got data: %s', JSON.stringify(genres, null, '  '));
+	renderTemplate(`${sectionName.toLowerCase()}.html`, genres);
+});
 
-function loadSection(sectionName, data) {
-    const tmpl = `${sectionName.toLowerCase()}.html`;
-    loadTemplate(tmpl, data).then(content => {
-        $('#section').html(content);
-    });
-}
+ipcRenderer.on('show-error', (event, err) => {
+	console.debug('show-error event');
+	console.log('Error: %s', JSON.stringify(err, null, '  '));
+	renderTemplate('error.html', {
+		message: err
+	});
 
+});
 
-window.ipc.on('set-section', (event, sectionName, data) => {
-    loadSection(sectionName, data);
-})
 
 
 $(document).ready(() => {
-    $('.sidenav').sidenav();
-    window.ipc.send('get-section', 'Genres');
+	$('.sidenav').sidenav();
+	ipcRenderer.send('get-section', 'Genres');
 
 })

@@ -1,38 +1,19 @@
 <h4>Genres</h4>
 
 <ul class="collection">
+{% for item in items %}
     <li class="collection-item avatar">
-        <img src="img/pop.png" alt="" class="circle">
-        <span class="title"><a href="#">Rock</a></span>
-        <p class="truncate">
-            In rock/pop's nascent days, "pop" applied to commercially successful artists who won broad, sweeping public interest with simplistic, lighthearted musical fare. As the style diversified and mutated into numerous subgenres, the
-            notion of popular music moved from indicating the one-hit wonder, mass-appealing artist to denoting an often sugarcoated "pop" sound that was pure aural amusement: three minutes of bright melodies and infectious hooks. But the
-            term essentially means a tune composed for popular appeal; the paradox facing many proponents of "pop" these days is that their stylistic approaches may seem too archaic, simplistic or eclectic for the mainstream. But purveyors of
-            unusual pop pepper the landscape of Indie Rock.
-        </p>
+        <img src="{{item.image}}" alt="" class="circle">
+        <span class="title"><a href="javascript: gotoGenre('{{item.title}}')">{{item.title}}</a></span>
+        <p class="truncate">{{ item.description }}</p>
     </li>
-    <li class="collection-item avatar">
-        <img src="img/rock.png" alt="" class="circle">
-        <span class="title"><a href="#">Pop</a></span>
-        <p class="truncate">
-            Just as a Supreme Court justice famously declared that he couldn't define pornography but he knew it when he saw it, there's something silly about trying to describe rock. A basic beat, a little electricity, a hint of sexual
-            abandon, and generous helpings of youth and rebellion have always been the essential ingredients, though fashion and circumstance tend to emphasize different parts of the recipe (and the youthful rebellion is getting harder to
-            spot as wrinkled pioneers the Rolling Stones and the Who plod on). In rock's nascent days, "pop artist" was shorthand for commercially successful, mop-topped musicians. As rock became more ambitious, pop came to denote anything
-            short and sugarcoated with bright melodies and infectious hooks.
-        </p>
-    </li>
-    <li class="collection-item avatar">
-        <img src="img/alternative.png" alt="" class="circle">
-        <span class="title"><a href="#">Alternative</a></span>
-        <p class="truncate">
-            "A gigantic stylistic umbrella for everything from early garage rockers the Stooges to noise artisans Sonic Youth, and from synth-pop royalty New Order to post-modern pop pioneer Beck, the "alternative" moniker was introduced into
-            the mainstream in the early 1990s -- but as an alternative to what? Alternative represented a collision of several genres whose momentum had been building for several decades. Beginning with the artsy, seedy undercurrents of the
-            Velvet Underground in the late '60s, and continuing through both punk's heyday in the late '70s and the college rock/post-punk of the '80s, the groundswell of the underground ultimately broke big in January 1992 when grunge
-            upstart Nirvana's <I>Nevermind</I> improbably topped album charts worldwide. The brashness of the original punk movement has played a significant role in forming the attitude and identity of most alternative music of the last
-            twenty years, yet the underground's original scorn of mass acceptance became so diluted in the wake of its ever-growing commercial success, its near-complete metamorphosis into the mainstream was an inevitability in the hodgepodge
-            '90s.
-        </p>
-    </li>
+{% else %}
+<div class="card-panel grey lighten-1">
+  <p class="black-text">
+  No genres...
+  </p>
+</div>
+{% endfor %}
 </ul>
 <ul class="pagination">
     <li class="disabled"><a href="#!" style="padding-left:0;"><i class="material-icons">chevron_left</i></a></li>
