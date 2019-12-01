@@ -12,7 +12,7 @@ const HEADERS = {
 function sanitize(html) {
 	const $ = cheerio.load(html);
 	$('a[href^="http"]').attr('target','_blank');
-	return truncate($.root().html(), 300);
+	return $.root().html();
 }
 
 
@@ -23,7 +23,7 @@ function handleGenre(raw) {
         .reduce((obj, key) => {
 			const val = raw[key];
 			if (key === 'description') {
-				obj[key] = sanitize(val);
+				obj[key] = truncate(sanitize(val), 200);
 			} else {
 				obj[key] = val;
 			}

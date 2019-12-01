@@ -4,7 +4,7 @@
 {% for item in genres %}
     <li class="collection-item avatar">
         <img src="{{item.image}}" alt="" class="circle">
-        <span class="title"><a href="javascript: gotoGenre('{{item.name}}')">{{item.name}}</a></span>
+        <span class="title"><a href="/goto/genres/{{item.id}}">{{item.name}}</a></span>
         <p>{{ item.description }}</p>
     </li>
 {% else %}
