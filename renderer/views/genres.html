@@ -1,19 +1,6 @@
 <h4>Genres</h4>
 
-<ul class="collection">
-{% for item in genres %}
-    <li class="collection-item avatar">
-        <img src="{{item.image}}" alt="" class="circle">
-        <span class="title"><a href="/goto/genres/{{item.id}}">{{item.name}}</a></span>
-        <p>{{ item.description }}</p>
-    </li>
-{% else %}
-<div class="card-panel grey lighten-1">
-  <p class="black-text">
-  No genres...
-  </p>
-</div>
-{% endfor %}
+<ul class="collection" id="genres-list">
 </ul>
 
 <!--

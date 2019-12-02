@@ -19,9 +19,10 @@ nav {
   padding-left: 24px;
 }
 
-#section {
+#main {
 	flex: 1 0 auto;
 	width: 95%;
+	min-height: 600px;
 }
 
 .brand-logo {

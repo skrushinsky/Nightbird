@@ -15,40 +15,68 @@ nunjucks.configure('views', {
 
 function renderTemplate(fileName, context, section = '#main') {
     console.debug('Rendering template %s', fileName);
-    console.debug('context: %s', JSON.stringify(context, null, '  '));
-    nunjucks.render(fileName, context, (err, res) => {
-        if (err) {
-            console.error('Error rendering template: %s', err);
-        } else {
-            $(section).html(res);
-        }
-    });
+	return new Promise( (resolve, reject) => {
+		nunjucks.render(fileName, context, (err, res) => {
+	        if (err) {
+	            console.error('Error rendering template: %s', err);
+				reject(err)
+	        } else {
+	            $(section).html(res);
+				resolve(res);
+	        }
+	    });
+	});
 }
 
-ipcRenderer.on('set-section', (event, sectionName, data) => {
-    console.debug('set-section event');
-    const genres = JSON.parse(data);
-    renderTemplate(`${sectionName.toLowerCase()}.html`, {genres: genres});
-    renderTemplate('breadcrumbs.html', {
-        path: [{
-            title: sectionName,
-            href: 'genres'
-        }]
-    }, '#breadcrumbs');
-});
 
 ipcRenderer.on('show-error', (event, err) => {
     console.debug('show-error event');
     console.log('Error: %s', JSON.stringify(err, null, '  '));
-    renderTemplate('error.html', {
-        message: err
-    });
+    renderTemplate('error.html', { message: err });
 });
 
+
+ipcRenderer.on('set-url', (event, url) => {
+	console.log('set-url event, %s', url);
+	router.handle(url);
+});
+
+
+ipcRenderer.on('set-genres', (event, data) => {
+	console.log('set-genres event');
+	const genres = JSON.parse(data);
+	console.log('Got %d genres', genres.length);
+	const ul = $('#genres-list');
+	for(let genre of genres) {
+		const li = $('<li class="collection-item avatar"/>');
+		const img = `<img src="${genre.image}" alt="" class="circle"/>`;
+		li.append($(img));
+		const span = $('<span class="title"/>');
+		const a = `<a href="/genres/${genre.id}">${genre.name}</a>`;
+		span.append($(a));
+		li.append(span);
+		const p = `<p>${genre.description}</p>`;
+		li.append($(p));
+		ul.append(li);
+	}
+});
+
+router.addRoute('/genres', (uri, params) => {
+	renderTemplate('genres.html').then(
+		() => ipcRenderer.send('get-genres')
+	).then( () => {
+		renderTemplate('breadcrumbs.html', {
+	        path: [{ title: 'Genres', href: '/genres'}]
+	    }, '#breadcrumbs');
+	}).catch( err => consolo.error(err));
+});
+
+router.addRoute('/genres/:id', (uri, params) => {
+
+});
 
 
 $(document).ready(() => {
     $('.sidenav').sidenav();
-    ipcRenderer.send('get-section', 'Genres');
-
+	router.handle('/genres');
 })

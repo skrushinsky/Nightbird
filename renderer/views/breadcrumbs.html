@@ -3,7 +3,7 @@
         {% if loop.last %}
     <span class="breadcrumb">{{ it.title }}</span>
         {% else %}
-    <a href="/goto/{{ it.href }}" class="breadcrumb">{{ it.title }}</a>
+    <a href="#{{ it.href }}" class="breadcrumb">{{ it.title }}</a>
         {% endif %}
     {% endfor %}
 </div>
