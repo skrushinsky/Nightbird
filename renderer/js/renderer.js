@@ -4,6 +4,8 @@
 // `nodeIntegration` is turned off. Use `preload.js` to
 // selectively enable features needed in the rendering
 // process.
+
+
 const sectionNames = ['Genres', 'Artists', 'Albums', 'Tracks', 'Stations'];
 let currentSection = null;
 const ipcRenderer = window.ipcRenderer;
@@ -63,7 +65,7 @@ ipcRenderer.on('set-genres', (event, data) => {
 
 router.addRoute('/genres', (uri, params) => {
 	renderTemplate('genres.html').then(
-		() => ipcRenderer.send('get-genres')
+		fetch()
 	).then( () => {
 		renderTemplate('breadcrumbs.html', {
 	        path: [{ title: 'Genres', href: '/genres'}]
@@ -72,7 +74,16 @@ router.addRoute('/genres', (uri, params) => {
 });
 
 router.addRoute('/genres/:id', (uri, params) => {
-
+	// renderTemplate('genre.html').then(
+	// 	() => ipcRenderer.send('get-genre', params.id)
+	// ).then( (genre) => {
+	// 	renderTemplate('breadcrumbs.html', {
+	//         path: [
+	// 			{ title: 'Genres', href: '/genres'},
+	// 			{ title: genre.name, href: `/genres/${genre.id}`},
+	// 		]
+	//     }, '#breadcrumbs');
+	// }).catch( err => consolo.error(err));
 });
 
 
