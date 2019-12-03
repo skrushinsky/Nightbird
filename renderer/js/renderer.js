@@ -63,21 +63,25 @@ router.addRoute('/genres', async (uri, params) => {
 	}
 });
 
-router.addRoute('/genres/:id', (uri, params) => {
-	// renderTemplate('genre.html').then(
-	// 	() => ipcRenderer.send('get-genre', params.id)
-	// ).then( (genre) => {
-	// 	renderTemplate('breadcrumbs.html', {
-	//         path: [
-	// 			{ title: 'Genres', href: '/genres'},
-	// 			{ title: genre.name, href: `/genres/${genre.id}`},
-	// 		]
-	//     }, '#breadcrumbs');
-	// }).catch( err => consolo.error(err));
+router.addRoute('/genres/:id', async (uri, params) => {
+	const data = await fetchData(`/genres/${params.id}`);
+	const genre = data.genres[0];
+	genre.image = `${IMG_ROOT}/images/${genre.id}/240x160.jpg`;
+	console.debug('Got genre: %s', JSON.stringify(genre));
+	await renderTemplate('genre.html', {genre});
+	$('.tabs').tabs();
+	renderTemplate('breadcrumbs.html', {
+        path: [
+			{ title: 'Genres', href: '/genres'},
+			{ title: genre.name, href: `/genres/${genre.id}`},
+		]
+    }, '#breadcrumbs');
 });
 
 
 $(document).ready(() => {
-    $('.sidenav').sidenav();
+	M.AutoInit();
+	//$('.tabs').tabs();
+    //$('.sidenav').sidenav();
 	router.handle('/genres');
 })

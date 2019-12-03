@@ -6,16 +6,22 @@ const HEADERS = {
 }
 
 
+async function fetchData(path) {
+    try {
+        const resp = await fetch(`${API_ROOT}${path}`, { headers: HEADERS});
+        const data = await resp.json();
+        return data;
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+
 async function fetchGenres(callback) {
     console.debug('Fetching genres...');
-    try {
-        const resp = await fetch(`${API_ROOT}/genres`, { headers: HEADERS});
-        const data = await resp.json();
-        for (let genre of data.genres ) {
-            genre.image = `${IMG_ROOT}/images/${genre.id}/161x64.jpg`;
-            callback(genre);
-        }
-    } catch (err) {
-        console.log(err);
+    const data = await fetchData('/genres');
+    for (let genre of data.genres ) {
+        genre.image = `${IMG_ROOT}/images/${genre.id}/161x64.jpg`;
+        callback(genre);
     }
 }
