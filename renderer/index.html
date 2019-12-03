@@ -4,7 +4,7 @@
 <head>
 	<title>Nightbird</title>
 	<meta charset="utf-8">
-	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' https://api.napster.com/">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' https://api.napster.com/; connect-src 'self' https://api.napster.com/">
 	<meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="css/materialize.min.css" />
@@ -53,9 +53,11 @@
 		</div>
 	</footer>
 	<script src="js/jquery.js"></script>
+	<script src="js/jQuery.succinct.min.js"></script>
 	<script src="js/materialize.min.js"></script>
 	<script src="js/nunjucks.js"></script>
 	<script src="js/routes.js"></script>
+	<script src="js/api.js"></script>
 	<script src="js/renderer.js"></script>
 </body>
 

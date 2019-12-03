@@ -14,14 +14,7 @@
   "author": "Sergey Krushinsky",
   "license": "ISC",
   "dependencies": {
-    "cheerio": "^1.0.0-rc.3",
-    "html-truncate": "^1.2.2",
-    "material-design-icons": "^3.0.1",
-    "materialize-css": "^1.0.0-rc.2",
-    "open": "^7.0.0",
-    "request": "^2.88.0",
-    "request-promise-native": "^1.0.8",
-    "roboto-fontface": "^0.10.0"
+    "open": "^7.0.0"
   },
   "devDependencies": {
     "electron": "^7.1.2"

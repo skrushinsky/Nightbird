@@ -8,9 +8,6 @@ const path = require('path');
 const open = require('open');
 
 const appTitle = "Nightbird";
-const {
-    fetchGenres
-} = require('./main/sections');
 
 
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
@@ -40,18 +37,15 @@ function createWindow() {
     });
 
 	const {webContents} = mainWindow;
-    webContents.on('new-window', (event, url) => {
-        console.log('new-window event')
-        event.preventDefault();
-        open(url);
-    });
+
 	webContents.on('will-navigate', (event, url) => {
 		console.log('will-navigate, url: %s', url);
+        event.preventDefault();
 		if (url.startsWith('file:')) {
-		    event.preventDefault();
-            //event.sender.send('set-url', url);
-            event.sender.send('set-url', url.substr(7));
-		}
+            event.sender.send('navigate-to', url.substr(7));
+		} else {
+            open(url);
+        }
 	});
 	// Open the DevTools.
     webContents.openDevTools();
@@ -80,32 +74,3 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
-
-ipcMain.on('get-genres', ( event ) => {
-    fetchGenres().then(res => {
-        event.sender.send('set-genres', JSON.stringify(res));
-    }).catch(err => {
-        console.log(err);
-        event.sender.send('show-error', err);
-    });
-});
-
-
-// ipcMain.on('get-section', (event, sectionName) => {
-//     let handler;
-//     switch (sectionName) {
-//         case 'Genres':
-//             handler = fetchGenres;
-//             break;
-//         default:
-//             throw `Unknown section: "${sectionName}"`;
-//     }
-//
-//     handler().then(res => {
-//         //console.log('Got result: %s', JSON.stringify(res, null, '  ') );
-//         event.sender.send('set-section', sectionName, JSON.stringify(res));
-//     }).catch(err => {
-//         console.log(err);
-//         event.sender.send('show-error', err);
-//     });
-// })

@@ -30,47 +30,37 @@ function renderTemplate(fileName, context, section = '#main') {
 	});
 }
 
-
-ipcRenderer.on('show-error', (event, err) => {
-    console.debug('show-error event');
-    console.log('Error: %s', JSON.stringify(err, null, '  '));
-    renderTemplate('error.html', { message: err });
-});
-
-
-ipcRenderer.on('set-url', (event, url) => {
+ipcRenderer.on('navigate-to', (event, url) => {
 	console.log('set-url event, %s', url);
 	router.handle(url);
 });
 
 
-ipcRenderer.on('set-genres', (event, data) => {
-	console.log('set-genres event');
-	const genres = JSON.parse(data);
-	console.log('Got %d genres', genres.length);
+router.addRoute('/genres', async (uri, params) => {
+	await renderTemplate('genres.html');
 	const ul = $('#genres-list');
-	for(let genre of genres) {
-		const li = $('<li class="collection-item avatar"/>');
-		const img = `<img src="${genre.image}" alt="" class="circle"/>`;
-		li.append($(img));
-		const span = $('<span class="title"/>');
-		const a = `<a href="/genres/${genre.id}">${genre.name}</a>`;
-		span.append($(a));
-		li.append(span);
-		const p = `<p>${genre.description}</p>`;
-		li.append($(p));
-		ul.append(li);
+	try {
+		await fetchGenres( genre => {
+			//console.debug('rendering %s', JSON.stringify(genre));
+			const li = $('<li class="collection-item avatar"/>');
+			const img = `<img src="${genre.image}" alt="" class="circle"/>`;
+			li.append($(img));
+			const span = $('<span class="title"/>');
+			const a = `<a href="/genres/${genre.id}">${genre.name}</a>`;
+			span.append($(a));
+			li.append(span);
+			li.append($('<br>'));
+			descr = `<span class="description">${genre.description}</span>`;
+			li.append($(descr));
+			ul.append(li);
+			$('span.description').succinct();
+		});
+		await renderTemplate('breadcrumbs.html', {
+			path: [{ title: 'Genres', href: '/genres'}]
+		}, '#breadcrumbs');
+	} catch (err) {
+		console.error(err);
 	}
-});
-
-router.addRoute('/genres', (uri, params) => {
-	renderTemplate('genres.html').then(
-		fetch()
-	).then( () => {
-		renderTemplate('breadcrumbs.html', {
-	        path: [{ title: 'Genres', href: '/genres'}]
-	    }, '#breadcrumbs');
-	}).catch( err => consolo.error(err));
 });
 
 router.addRoute('/genres/:id', (uri, params) => {
