@@ -71,3 +71,7 @@ ul.horizontal li a {
 	text-transform: uppercase !important;
 	font-size: 1.2em;
 }
+
+.card-image img {
+    padding: 28px 0 24px 24px;
+}
