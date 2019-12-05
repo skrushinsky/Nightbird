@@ -56,17 +56,15 @@ function renderGenres(genres) {
 
 function renderSubGenres(parentId, genres) {
     return new Promise(  (resolve, reject) => {
-        const carousel = $('sub-genres');
+        const carousel = $('#sub-genres');
         for (let genre of genres) {
-            const div = $('<div class="carousel-item"/>');
-            const h2 = `<h2>${genre.name}</h2>`
-            div.append($(h2));
-            const a = `<a class="carousel-item" href="/genres/${parentId}/children/${genre.id}"/>`
+            const a = `<a class="carousel-item" href="#${genre.name}!" data-id="${genre.id}"/>`
             const img = `<img src="${IMG_ROOT}/images/${genre.id}/240x160.jpg">`;
             const link = $(a);
+            const text = `<h5 class="center-align">${genre.name}</h5>`;
+            link.append($(text));
             link.append($(img));
-            div.append(link);
-            carousel.append(div);
+            carousel.append(link);
         }
         resolve();
     });
@@ -96,6 +94,16 @@ router.addRoute('/genres/:id', async (uri, params) => {
     await renderSubGenres(genre.id, children.genres);
 	$('.tabs').tabs();
     $('.carousel').carousel();
+    $('.carousel > .active').click( () => {
+        const genreId = $(this).data();
+        console.log('Clicked, id=%s', genreId);
+        console.log($(this).data());
+    });
+    const carousel = document.querySelectorAll('.carousel');
+    // M.Carousel.init(carousel, {
+    //     //numVisible: 8,
+    //     indicators: true
+    // });
 	renderTemplate('breadcrumbs.html', {
         path: [
 			{ title: 'Genres', href: '/genres'},

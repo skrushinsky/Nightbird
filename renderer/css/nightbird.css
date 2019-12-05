@@ -75,3 +75,7 @@ ul.horizontal li a {
 .card-image img {
     padding: 28px 0 24px 24px;
 }
+
+#sub-genres {
+    height: 200px;
+}
