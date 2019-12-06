@@ -70,6 +70,14 @@ function renderSubGenres(parentId, genres) {
     });
 }
 
+async function getGenre(id) {
+    const data = await fetchData(`${API_ROOT}/genres/${id}`);
+	const genre = data.genres[0];
+	genre.image = `${IMG_ROOT}/images/${id}/240x160.jpg`;
+	console.debug('Got genre: %s', JSON.stringify(genre));
+    return genre;
+}
+
 router.addRoute('/genres', async (uri, params) => {
 	await renderTemplate('genres.html');
 	try {
@@ -85,31 +93,27 @@ router.addRoute('/genres', async (uri, params) => {
 
 
 router.addRoute('/genres/:id', async (uri, params) => {
-	const data = await fetchData(`${API_ROOT}/genres/${params.id}`);
-	const genre = data.genres[0];
-	genre.image = `${IMG_ROOT}/images/${genre.id}/240x160.jpg`;
-	console.debug('Got genre: %s', JSON.stringify(genre));
+    const genre = await getGenre(params.id);
 	await renderTemplate('genre.html', {genre});
     const children = await fetchData(genre.links.childGenres.href);
     await renderSubGenres(genre.id, children.genres);
 	$('.tabs').tabs();
     $('.carousel').carousel();
-    $('.carousel > .active').click( () => {
-        const genreId = $(this).data();
-        console.log('Clicked, id=%s', genreId);
-        console.log($(this).data());
+    $(document).on('click','.carousel > .active', function () {
+        const childId = $(this).data().id);
+        router.handle(`/genres/${genre.id}/children/${childId}`);
     });
     const carousel = document.querySelectorAll('.carousel');
-    // M.Carousel.init(carousel, {
-    //     //numVisible: 8,
-    //     indicators: true
-    // });
 	renderTemplate('breadcrumbs.html', {
         path: [
 			{ title: 'Genres', href: '/genres'},
 			{ title: genre.name, href: `/genres/${genre.id}`},
 		]
     }, '#breadcrumbs');
+});
+
+router.addRoute('/genres/:parent_id/children/:child_id', async (uri, params) => {
+    const genre = await getGenre(params.child_id);
 });
 
 
