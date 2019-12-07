@@ -1,12 +1,4 @@
 <div class="row">
-	<div class="col s12">
-		<ul class="tabs">
-			<li class="tab col s3"><a class="active" href="#genre-description">Description</a></li>
-			<li class="tab col s3"><a class="active" href="#genre-artists">Artists</a></li>
-			<li class="tab col s3"><a class="active" href="#genre-albums">Albums</a></li>
-			<li class="tab col s3"><a class="active" href="#genre-stations">Stations</a></li>
-		</ul>
-	</div>
 	<div id="genre-description" class="col s12">
 		<div class="row">
 			<div class="col s12 m12">
@@ -23,12 +15,22 @@
 				</div>
 			</div>
 		</div>
-		{% if hasChildren %}
-        <h4 style="margin: 0;">Sub-genres</h4>
-        <div class="carousel" id="sub-genres">
-        </div>
-		{% endif %}
 	</div>
+	<div class="col s12">
+		<ul class="tabs">
+			{% if hasChildren %}
+			<li class="tab col s3"><a class="active" href="#genre-children">Sub-genres</a></li>
+			{% endif %}
+			<li class="tab col s3"><a class="active" href="#genre-artists">Artists</a></li>
+			<li class="tab col s3"><a class="active" href="#genre-albums">Albums</a></li>
+			<li class="tab col s3"><a class="active" href="#genre-stations">Stations</a></li>
+		</ul>
+	</div>
+	{% if hasChildren %}
+	<div id="genre-children" class="col s12">
+		<div class="carousel" id="sub-genres"></div>
+	</div>
+	{% endif %}
 	<div id="genre-artists" class="col s12">
 	</div>
 	<div id="genre-albums" class="col s12">
