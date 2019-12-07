@@ -10,30 +10,32 @@ const sectionNames = ['Genres', 'Artists', 'Albums', 'Tracks', 'Stations'];
 let currentSection = null;
 const ipcRenderer = window.ipcRenderer;
 
-nunjucks.configure('views', { autoescape: false });
+nunjucks.configure('views', {
+    autoescape: false
+});
 
 function renderTemplate(fileName, context, section = '#main') {
     console.debug('Rendering template %s', fileName);
-	return new Promise( (resolve, reject) => {
-		nunjucks.render(fileName, context, (err, res) => {
-	        if (err) {
-	            console.error('Error rendering template: %s', err);
-				reject(err)
-	        } else {
-	            $(section).html(res);
-				resolve(res);
-	        }
-	    });
-	});
+    return new Promise((resolve, reject) => {
+        nunjucks.render(fileName, context, (err, res) => {
+            if (err) {
+                console.error('Error rendering template: %s', err);
+                reject(err)
+            } else {
+                $(section).html(res);
+                resolve(res);
+            }
+        });
+    });
 }
 
 ipcRenderer.on('navigate-to', (event, url) => {
-	console.log('set-url event, %s', url);
-	router.handle(url);
+    console.log('set-url event, %s', url);
+    router.handle(url);
 });
 
 function renderGenres(genres) {
-    return new Promise(  (resolve, reject) => {
+    return new Promise((resolve, reject) => {
         const ul = $('#genres-list');
         for (let genre of genres) {
             genre.image = `${IMG_ROOT}/images/${genre.id}/161x64.jpg`;
@@ -54,8 +56,8 @@ function renderGenres(genres) {
     });
 }
 
-function renderSubGenres(parentId, genres) {
-    return new Promise(  (resolve, reject) => {
+function renderSubGenres(genres) {
+    return new Promise((resolve, reject) => {
         const carousel = $('#sub-genres');
         for (let genre of genres) {
             const a = `<a class="carousel-item" href="#${genre.name}!" data-id="${genre.id}"/>`
@@ -72,54 +74,73 @@ function renderSubGenres(parentId, genres) {
 
 async function getGenre(id) {
     const data = await fetchData(`${API_ROOT}/genres/${id}`);
-	const genre = data.genres[0];
-	genre.image = `${IMG_ROOT}/images/${id}/240x160.jpg`;
-	console.debug('Got genre: %s', JSON.stringify(genre));
+    const genre = data.genres[0];
+    genre.image = `${IMG_ROOT}/images/${id}/240x160.jpg`;
+    console.debug('Got genre: %s', JSON.stringify(genre));
     return genre;
 }
 
+function createBreadcrumbsItem(val, idx, arr) {
+    const path = `/genres/${val.id}`;
+    let uri;
+    if (idx > 0) {
+        const qs = arr.slice(0, idx).map(p => `parent=${p.id}|${p.name}`).join('&');
+        uri = `${path}?${qs}`;
+    } else {
+        uri = path;
+    }
+    return { title: val.name, href: uri }
+}
+
 router.addRoute('/genres', async (uri, params) => {
-	await renderTemplate('genres.html');
-	try {
-		const genres = await fetchGenres();
+    await renderTemplate('genres.html');
+    try {
+        const genres = await fetchGenres();
         const li = await renderGenres(genres);
-		await renderTemplate('breadcrumbs.html', {
-			path: [{ title: 'Genres', href: '/genres'}]
-		}, '#breadcrumbs');
-	} catch (err) {
-		console.error(err);
-	}
+        await renderTemplate('breadcrumbs.html', {
+            path: [{
+                title: 'Genres',
+                href: '/genres'
+            }]
+        }, '#breadcrumbs');
+    } catch (err) {
+        console.error(err);
+    }
 });
 
 
-router.addRoute('/genres/:id', async (uri, params) => {
-    const genre = await getGenre(params.id);
-	await renderTemplate('genre.html', {genre});
-    const children = await fetchData(genre.links.childGenres.href);
-    await renderSubGenres(genre.id, children.genres);
-	$('.tabs').tabs();
-    $('.carousel').carousel();
-    $(document).on('click','.carousel > .active', function () {
-        const childId = $(this).data().id);
-        router.handle(`/genres/${genre.id}/children/${childId}`);
+router.addRoute('/genres/:id', async (uri, params, query) => {
+    const parents = new URLSearchParams(query).getAll('parent').map(s => {
+        const [id, name] = s.split('|');
+        return { id, name }
     });
-    const carousel = document.querySelectorAll('.carousel');
-	renderTemplate('breadcrumbs.html', {
-        path: [
-			{ title: 'Genres', href: '/genres'},
-			{ title: genre.name, href: `/genres/${genre.id}`},
-		]
-    }, '#breadcrumbs');
-});
-
-router.addRoute('/genres/:parent_id/children/:child_id', async (uri, params) => {
-    const genre = await getGenre(params.child_id);
+    console.debug('handling genre: %s, parents: %s', params.id, JSON.stringify(parents) );
+    const genre = await getGenre(params.id);
+    const hasChildren = genre.links['childGenres'];
+    const history = [...parents];
+    await renderTemplate('genre.html', {genre, hasChildren});
+    if (hasChildren) {
+        const children = await fetchData(genre.links.childGenres.href);
+        await renderSubGenres(children.genres);
+        $(document).on('click', '.carousel > .active', function() {
+            const childId = $(this).data().id;
+            const childQuery = history.map(p => `parent=${p.id}|${p.name}`).join('&');
+            router.handle(`/genres/${childId}?${childQuery}`);
+        });
+        const carousel = document.querySelectorAll('.carousel');
+        $('.carousel').carousel();
+    }
+    $('.tabs').tabs();
+    history.push({id: genre.id, name: genre.name});
+    const path = history.map( createBreadcrumbsItem );
+    path.unshift({title: 'Genres', href: '/genres'});
+    await renderTemplate('breadcrumbs.html', { path }, '#breadcrumbs');
 });
 
 
 $(document).ready(() => {
-	M.AutoInit();
-	//$('.tabs').tabs();
+    M.AutoInit();
+    //$('.tabs').tabs();
     //$('.sidenav').sidenav();
-	router.handle('/genres');
+    router.handle('/genres');
 })

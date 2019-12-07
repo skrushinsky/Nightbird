@@ -35,9 +35,9 @@ class Router {
         }
         this.routes.push({
             uri,
-            callback: (uri, params) => {
-                console.debug('Route: %s, params: %s', uri, JSON.stringify(params));
-                callback(uri, params);
+            callback: (uri, params, query) => {
+                console.debug('Route: %s, params: %s, query: %s', uri, JSON.stringify(params), query);
+                callback(uri, params, query);
             }
         });
     }
@@ -45,17 +45,18 @@ class Router {
 
     handle(uri) {
         console.debug('handling %s', uri);
+        const [path, query] = uri.split('?');
         for(let route of this.routes) {
             const matcher = new RouteMatcher(route.uri);
-            const matches = matcher.match(uri);
+            const matches = matcher.match(path);
             if (matches) {
-                console.log('uri %s matches route %s', uri, route.uri);
-                console.log('matches: %s', JSON.stringify(matches));
+                console.debug('uri %s matches route %s', uri, route.uri);
+                //console.log('matches: %s', JSON.stringify(matches));
                 const params = {};
                 for (let i = 0; i < matcher.params.length; i++){
                    params[matcher.params[i]] = matches[i+1];
                 }
-                route.callback.call(this, uri, params);
+                route.callback.call(this, uri, params, query);
                 return;
             }
         }
