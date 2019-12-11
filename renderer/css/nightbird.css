@@ -76,6 +76,12 @@ ul.horizontal li a {
     padding: 28px 0 24px 24px;
 }
 
-#sub-genres {
+#genre-page .carousel {
     height: 200px;
+}
+
+
+.blurb {
+	min-height: 201px;
+	max-height: 201px;
 }

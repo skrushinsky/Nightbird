@@ -7,11 +7,11 @@ class RouteMatcher {
     match(uri) {
         const path = this.route.replace(/:\w+/g, match => {
             this.params.push(match.substr(1));
-            return '(.+)';
+            return '([^/]+)';
         });
-        console.log('path: %s', path);
+        console.debug('path: %s', path);
         const regexp = new RegExp(`^${path}$`);
-        console.log('regexp: %s', regexp);
+        console.debug('regexp: %s', regexp);
         return uri.match(regexp);
     }
 }

@@ -56,17 +56,34 @@ function renderGenres(genres) {
     });
 }
 
+function renderCarouselItem(carousel, id, name, img) {
+    const a = `<a class="carousel-item" href="#${name}!" data-id="${id}"/>`;
+    const img_src = `<img src="${img}">`;
+    const link = $(a);
+    const text = `<h5 class="center-align">${name}</h5>`;
+    link.append($(text));
+    link.append($(img_src));
+    carousel.append(link);
+}
+
+
 function renderSubGenres(genres) {
     return new Promise((resolve, reject) => {
-        const carousel = $('#sub-genres');
+        const carousel = $('#subgenres-carousel');
         for (let genre of genres) {
-            const a = `<a class="carousel-item" href="#${genre.name}!" data-id="${genre.id}"/>`
-            const img = `<img src="${IMG_ROOT}/images/${genre.id}/240x160.jpg">`;
-            const link = $(a);
-            const text = `<h5 class="center-align">${genre.name}</h5>`;
-            link.append($(text));
-            link.append($(img));
-            carousel.append(link);
+            const img = `${IMG_ROOT}/images/${genre.id}/240x160.jpg`;
+            renderCarouselItem(carousel, genre.id, genre.name, img);
+        }
+        resolve();
+    });
+}
+
+function renderArtists(artists) {
+    return new Promise((resolve, reject) => {
+        const carousel = $('#artists-carousel');
+        for (let artist of artists) {
+            const img = `${IMG_ROOT}/v2/artists/${artist.id}/images/356x237.jpg`;
+            renderCarouselItem(carousel, artist.id, artist.name, img);
         }
         resolve();
     });
@@ -76,11 +93,22 @@ async function getGenre(id) {
     const data = await fetchData(`${API_ROOT}/genres/${id}`);
     const genre = data.genres[0];
     genre.image = `${IMG_ROOT}/images/${id}/240x160.jpg`;
-    console.debug('Got genre: %s', JSON.stringify(genre));
+    const artists = await fetchData(`${API_ROOT}/genres/${id}/artists/top`);
+    genre.artists = artists.artists;
+    //console.debug('Got genre: %s', JSON.stringify(genre));
     return genre;
 }
 
-function createBreadcrumbsItem(val, idx, arr) {
+async function getArtist(id) {
+    const data = await fetchData(`${API_ROOT}/artists/${id}`);
+    const artist = data.artists[0];
+    console.debug('artist: %s', JSON.stringify(artist));
+    artist.image = `${IMG_ROOT}/v2/artists/${id}/images/356x237.jpg`;
+    return artist;
+}
+
+
+function createGenresBreadcrumbsItem(val, idx, arr) {
     const path = `/genres/${val.id}`;
     let uri;
     if (idx > 0) {
@@ -91,6 +119,14 @@ function createBreadcrumbsItem(val, idx, arr) {
     }
     return { title: val.name, href: uri }
 }
+
+function getHistory(query) {
+    return new URLSearchParams(query).getAll('parent').map(s => {
+        const [id, name] = s.split('|');
+        return { id, name }
+    });
+}
+
 
 router.addRoute('/genres', async (uri, params) => {
     await renderTemplate('genres.html');
@@ -110,30 +146,56 @@ router.addRoute('/genres', async (uri, params) => {
 
 
 router.addRoute('/genres/:id', async (uri, params, query) => {
-    const parents = new URLSearchParams(query).getAll('parent').map(s => {
-        const [id, name] = s.split('|');
-        return { id, name }
-    });
-    console.debug('handling genre: %s, parents: %s', params.id, JSON.stringify(parents) );
+    const history = getHistory(query);
+    // console.debug('handling genre: %s, parents: %s', params.id, JSON.stringify(parents) );
     const genre = await getGenre(params.id);
+    history.push({id: genre.id, name: genre.name});
     const hasChildren = genre.links['childGenres'];
-    const history = [...parents];
+    const childQuery = history.map(p => `parent=${p.id}|${p.name}`).join('&');
     await renderTemplate('genre.html', {genre, hasChildren});
     if (hasChildren) {
         const children = await fetchData(genre.links.childGenres.href);
         await renderSubGenres(children.genres);
-        $(document).on('click', '.carousel > .active', function() {
+        $(document).on('click', '#genre-children > .carousel > .active', function() {
             const childId = $(this).data().id;
-            const childQuery = history.map(p => `parent=${p.id}|${p.name}`).join('&');
             router.handle(`/genres/${childId}?${childQuery}`);
         });
-        const carousel = document.querySelectorAll('.carousel');
-        $('.carousel').carousel();
     }
+    await renderArtists(genre.artists);
     $('.tabs').tabs();
-    history.push({id: genre.id, name: genre.name});
-    const path = history.map( createBreadcrumbsItem );
+    $('.tabs').on('click', 'a', function(e) {
+        $('.carousel').carousel();
+    });
+    $(document).on('click', '#genre-artists > .carousel > .active', function() {
+        const artistId = $(this).data().id;
+        router.handle(`/genres/${genre.id}/artists/${artistId}?${childQuery}&genre_name=${genre.name}`);
+    });
+    $('.carousel').carousel();
+
+    const path = history.map( createGenresBreadcrumbsItem );
     path.unshift({title: 'Genres', href: '/genres'});
+    await renderTemplate('breadcrumbs.html', { path }, '#breadcrumbs');
+});
+
+
+router.addRoute('/genres/:genre_id/artists/:artist_id', async (uri, params, query) => {
+    console.log('Handling artist');
+    const history = getHistory(query);
+    history.push({
+        id: params.genre_id,
+        name: new URLSearchParams(query).getAll('genre_name')
+    });
+    const artist = await getArtist(params.artist_id);
+    await renderTemplate('artist.html', {artist});
+    $('.tabs').tabs();
+    $('.tabs').on('click', 'a', function(e) {
+        $('.carousel').carousel();
+    });
+    $('.carousel').carousel();
+
+    const path = history.map( createGenresBreadcrumbsItem );
+    path.unshift({title: 'Genres', href: '/genres'});
+    path.push({ title: artist.name, href: '#'});
     await renderTemplate('breadcrumbs.html', { path }, '#breadcrumbs');
 });
 
