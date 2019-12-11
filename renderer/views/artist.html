@@ -9,19 +9,24 @@
 					</div>
 					<div class="card-stacked">
 						<div class="card-content">
-							<div class="carousel carousel-slider center">
+							<div class="slider">
+                                <ul class="slides">
 							{% set colors = cycler(
-								{bg: "red", fg: "white", shade: ""},
-								{bg: "teal", fg: "white", shade: "lighten-2"},
-								{bg: "yellow", fg: "black", shade: "lighten-3" },
-								{bg: "deep-purple", fg: "black", shade: "lighten-5" })
+                                {bgcolor: "red", bgshade: "", fgcolor: "white", fgshade: ""},
+                                {bgcolor: "teal", bgshade: "lighten-2", fgcolor: "white", fgshade: "lighten-2"},
+                                {bgcolor: "yellow", bgshade: "lighten-2", fgcolor: "black", fgshade: ""},
+                                {bgcolor: "deep-purple", bgshade: "lighten-5", fgcolor: "black", fgshade: "lighten-1"}
+                               )
 							%}
 							{% for blurb in artist.blurbs %}
 								{% set color = colors.next() %}
-								<div class="blurb card-panel {{ color.bg }} {{ color.shade }} {{ color.fg }}-text">
-									<p class="{{color.fg}}-text">{{ blurb }}</p>
-								</div>
-							{% endfor %}
+                                    <li class="{{ color.bgcolor }} {{ color.bgshade }}">
+                                        <div class="caption center-align">
+                                            <p class="blurb light {{color.fgcolor}}-text text-{{color.fgshade}}">{{ blurb }}</p>
+                                        </div>
+                                    </li>
+                            {% endfor %}
+                                </ul>
 							</div>
 						</div>
 					</div>
@@ -48,3 +53,11 @@
 		<div class="carousel" id="artist-albums-carousel"></div>
 	</div>
 </div>
+<script>
+  $('.slider').slider({
+    full_width: false,
+    interval:5000,
+    transition:800,
+    height: 193
+  });
+</script>

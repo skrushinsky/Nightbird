@@ -162,15 +162,19 @@ router.addRoute('/genres/:id', async (uri, params, query) => {
         });
     }
     await renderArtists(genre.artists);
-    $('.tabs').tabs();
-    $('.tabs').on('click', 'a', function(e) {
-        $('.carousel').carousel();
-    });
     $(document).on('click', '#genre-artists > .carousel > .active', function() {
         const artistId = $(this).data().id;
         router.handle(`/genres/${genre.id}/artists/${artistId}?${childQuery}&genre_name=${genre.name}`);
     });
-    $('.carousel').carousel();
+    const carouselOpts = {
+        height: 200,
+        numVisible: 10
+    };
+    $('.tabs').on('click', 'a', function(e) {
+        $('.carousel').carousel(carouselOpts);
+    });
+    $('.carousel').carousel(carouselOpts);
+    $('.tabs').tabs();
 
     const path = history.map( createGenresBreadcrumbsItem );
     path.unshift({title: 'Genres', href: '/genres'});
@@ -187,15 +191,15 @@ router.addRoute('/genres/:genre_id/artists/:artist_id', async (uri, params, quer
     });
     const artist = await getArtist(params.artist_id);
     await renderTemplate('artist.html', {artist});
+
     $('.tabs').tabs();
     $('.tabs').on('click', 'a', function(e) {
         $('.carousel').carousel();
     });
-    $('.carousel').carousel();
 
     const path = history.map( createGenresBreadcrumbsItem );
     path.unshift({title: 'Genres', href: '/genres'});
-    path.push({ title: artist.name, href: '#'});
+    path.push({ title: artist.name });
     await renderTemplate('breadcrumbs.html', { path }, '#breadcrumbs');
 });
 

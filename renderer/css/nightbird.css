@@ -16,7 +16,7 @@ nav {
 	display: flex;
 	flex-direction: column;
 	min-height: 140px;
-  padding-left: 24px;
+	padding-left: 24px;
 }
 
 #main {
@@ -33,10 +33,10 @@ nav {
 	font-stretch: expanded;
 	font-variant: small-caps;
 }
+
 /*.brand-logo {
 	padding-left: 10px;
 }*/
-
 div.footer-copyright {
 	padding: 10px !important;
 	margin: 0;
@@ -73,15 +73,14 @@ ul.horizontal li a {
 }
 
 .card-image img {
-    padding: 28px 0 24px 24px;
+	padding: 28px 0 24px 24px;
 }
-
+/* 
 #genre-page .carousel {
-    height: 200px;
-}
+	height: 200px;
+} */
 
-
-.blurb {
-	min-height: 201px;
-	max-height: 201px;
+p.blurb  {
+    font-size: 18px;
+    line-height: 1.4em;
 }
