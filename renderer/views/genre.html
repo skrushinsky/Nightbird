@@ -18,7 +18,7 @@
 	</div>
 	<div class="col s12">
 		<ul class="tabs">
-			{% if hasChildren %}
+			{% if genre.hasChildren %}
 			<li class="tab col s3"><a class="active" href="#genre-children">Sub-genres</a></li>
 			{% endif %}
 			<li class="tab col s3"><a href="#genre-artists">Top Artists</a></li>
@@ -26,16 +26,34 @@
 			<li class="tab col s3"><a href="#genre-stations">Stations</a></li>
 		</ul>
 	</div>
-	{% if hasChildren %}
+	{% if genre.hasChildren %}
 	<div id="genre-children" class="col s12">
-		<div class="carousel" id="subgenres-carousel"></div>
+		<div class="carousel" id="subgenres-carousel">
+			{% for child in genre.children %}
+			<a class="carousel-item" href="#{{child.name}}!" data-id="{{child.id}}">
+				<h5 class="center-align">{{child.name}}</h5>
+				<img src="{{child.image}}">
+			</a>
+			{% endfor %}
+		</div>
 	</div>
 	{% endif %}
 	<div id="genre-artists" class="col s12">
-		<div class="carousel" id="artists-carousel"></div>
+		<div class="carousel" id="artists-carousel">
+			{% for artist in genre.artists %}
+			<a class="carousel-item" href="#{{artist.name}}!" data-id="{{artist.id}}">
+				<h5 class="center-align">{{artist.name}}</h5>
+				<img src="{{artist.image}}">
+			</a>
+			{% endfor %}
+		</div>
 	</div>
 	<div id="genre-albums" class="col s12">
 	</div>
 	<div id="genre-stations" class="col s12">
 	</div>
 </div>
+<script>
+$('.carousel').carousel({ numVisible: 7 });
+$('.tabs').tabs();
+</script>

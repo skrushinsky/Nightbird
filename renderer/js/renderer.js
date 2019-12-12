@@ -56,46 +56,25 @@ function renderGenres(genres) {
     });
 }
 
-function renderCarouselItem(carousel, id, name, img) {
-    const a = `<a class="carousel-item" href="#${name}!" data-id="${id}"/>`;
-    const img_src = `<img src="${img}">`;
-    const link = $(a);
-    const text = `<h5 class="center-align">${name}</h5>`;
-    link.append($(text));
-    link.append($(img_src));
-    carousel.append(link);
-}
-
-
-function renderSubGenres(genres) {
-    return new Promise((resolve, reject) => {
-        const carousel = $('#subgenres-carousel');
-        for (let genre of genres) {
-            const img = `${IMG_ROOT}/images/${genre.id}/240x160.jpg`;
-            renderCarouselItem(carousel, genre.id, genre.name, img);
-        }
-        resolve();
-    });
-}
-
-function renderArtists(artists) {
-    return new Promise((resolve, reject) => {
-        const carousel = $('#artists-carousel');
-        for (let artist of artists) {
-            const img = `${IMG_ROOT}/v2/artists/${artist.id}/images/356x237.jpg`;
-            renderCarouselItem(carousel, artist.id, artist.name, img);
-        }
-        resolve();
-    });
-}
-
 async function getGenre(id) {
     const data = await fetchData(`${API_ROOT}/genres/${id}`);
     const genre = data.genres[0];
     genre.image = `${IMG_ROOT}/images/${id}/240x160.jpg`;
     const artists = await fetchData(`${API_ROOT}/genres/${id}/artists/top`);
-    genre.artists = artists.artists;
-    //console.debug('Got genre: %s', JSON.stringify(genre));
+    genre.artists = artists.artists.map( artist => {
+        artist.image =  `${IMG_ROOT}/v2/artists/${artist.id}/images/356x237.jpg`;
+        return artist;
+    });
+    if (genre.links['childGenres']) {
+        genre.hasChildren = true;
+        const children = await fetchData(genre.links.childGenres.href);
+        genre.children = children.genres.map( child => {
+            child.image =  `${IMG_ROOT}/images/${child.id}/240x160.jpg`;
+            return child;
+        });
+    } else {
+        genre.hasChildren = false;
+    }
     return genre;
 }
 
@@ -150,31 +129,18 @@ router.addRoute('/genres/:id', async (uri, params, query) => {
     // console.debug('handling genre: %s, parents: %s', params.id, JSON.stringify(parents) );
     const genre = await getGenre(params.id);
     history.push({id: genre.id, name: genre.name});
-    const hasChildren = genre.links['childGenres'];
     const childQuery = history.map(p => `parent=${p.id}|${p.name}`).join('&');
-    await renderTemplate('genre.html', {genre, hasChildren});
-    if (hasChildren) {
-        const children = await fetchData(genre.links.childGenres.href);
-        await renderSubGenres(children.genres);
-        $(document).on('click', '#genre-children > .carousel > .active', function() {
-            const childId = $(this).data().id;
-            router.handle(`/genres/${childId}?${childQuery}`);
-        });
-    }
-    await renderArtists(genre.artists);
+    await renderTemplate('genre.html', {genre});
+
+    $(document).on('click', '#genre-children > .carousel > .active', function() {
+        const childId = $(this).data().id;
+        router.handle(`/genres/${childId}?${childQuery}`);
+    });
+    //await renderArtists(genre.artists);
     $(document).on('click', '#genre-artists > .carousel > .active', function() {
         const artistId = $(this).data().id;
         router.handle(`/genres/${genre.id}/artists/${artistId}?${childQuery}&genre_name=${genre.name}`);
     });
-    const carouselOpts = {
-        height: 200,
-        numVisible: 10
-    };
-    $('.tabs').on('click', 'a', function(e) {
-        $('.carousel').carousel(carouselOpts);
-    });
-    $('.carousel').carousel(carouselOpts);
-    $('.tabs').tabs();
 
     const path = history.map( createGenresBreadcrumbsItem );
     path.unshift({title: 'Genres', href: '/genres'});
@@ -206,7 +172,5 @@ router.addRoute('/genres/:genre_id/artists/:artist_id', async (uri, params, quer
 
 $(document).ready(() => {
     M.AutoInit();
-    //$('.tabs').tabs();
-    //$('.sidenav').sidenav();
     router.handle('/genres');
 })
