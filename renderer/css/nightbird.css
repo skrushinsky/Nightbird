@@ -80,6 +80,14 @@ ul.horizontal li a {
 	height: 220px;
 }
 
+#artist-bio {
+	margin: 10px;
+}
+
+#genre-description {
+	max-height: 300px;
+	overflow: auto;
+}
 
 p.blurb  {
     font-size: 18px;

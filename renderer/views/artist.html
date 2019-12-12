@@ -40,7 +40,7 @@
 			<li class="tab col s3"><a href="#artist-albums">Albums</a></li>
 		</ul>
 	</div>
-	<div id="artist-bio" class="col s12">
+	<div id="artist-bio" class="col s12  indigo lighten-5">
 		{% for bio in artist.bios %}
 		<p>
 			{{bio.bio}}
@@ -56,8 +56,9 @@
 <script>
   $('.slider').slider({
     full_width: false,
-    interval:5000,
+    interval:4000,
     transition:800,
     height: 193
   });
+  $('.slider').slider('next');
 </script>

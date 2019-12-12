@@ -137,7 +137,6 @@ router.addRoute('/genres/:id', async (uri, params, query) => {
         const childId = $(this).data().id;
         router.handle(`/genres/${childId}?${childQuery}`);
     });
-    //await renderArtists(genre.artists);
     $(document).on('click', '#genre-artists > .carousel > .active', function() {
         const artistId = $(this).data().id;
         router.handle(`/genres/${genre.id}/artists/${artistId}?${childQuery}`);
