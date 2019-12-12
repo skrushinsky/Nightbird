@@ -9,6 +9,7 @@
 const sectionNames = ['Genres', 'Artists', 'Albums', 'Tracks', 'Stations'];
 let currentSection = null;
 const ipcRenderer = window.ipcRenderer;
+let childQuery = '';
 
 nunjucks.configure('views', {
     autoescape: false
@@ -125,11 +126,11 @@ router.addRoute('/genres', async (uri, params) => {
 
 
 router.addRoute('/genres/:id', async (uri, params, query) => {
-    const history = getHistory(query);
+    let history = getHistory(query);
     // console.debug('handling genre: %s, parents: %s', params.id, JSON.stringify(parents) );
     const genre = await getGenre(params.id);
     history.push({id: genre.id, name: genre.name});
-    const childQuery = history.map(p => `parent=${p.id}|${p.name}`).join('&');
+    childQuery = history.map(p => `parent=${p.id}|${p.name}`).join('&');
     await renderTemplate('genre.html', {genre});
 
     $(document).on('click', '#genre-children > .carousel > .active', function() {
@@ -139,7 +140,7 @@ router.addRoute('/genres/:id', async (uri, params, query) => {
     //await renderArtists(genre.artists);
     $(document).on('click', '#genre-artists > .carousel > .active', function() {
         const artistId = $(this).data().id;
-        router.handle(`/genres/${genre.id}/artists/${artistId}?${childQuery}&genre_name=${genre.name}`);
+        router.handle(`/genres/${genre.id}/artists/${artistId}?${childQuery}`);
     });
 
     const path = history.map( createGenresBreadcrumbsItem );
@@ -151,10 +152,10 @@ router.addRoute('/genres/:id', async (uri, params, query) => {
 router.addRoute('/genres/:genre_id/artists/:artist_id', async (uri, params, query) => {
     console.log('Handling artist');
     const history = getHistory(query);
-    history.push({
-        id: params.genre_id,
-        name: new URLSearchParams(query).getAll('genre_name')
-    });
+    // history.push({
+    //     id: params.genre_id,
+    //     name: new URLSearchParams(query).getAll('genre_name')
+    // });
     const artist = await getArtist(params.artist_id);
     await renderTemplate('artist.html', {artist});
 
