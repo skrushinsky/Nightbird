@@ -21,14 +21,14 @@
 			{% if genre.hasChildren %}
 			<li class="tab col s3"><a class="active" href="#genre-children">Sub-genres</a></li>
 			{% endif %}
-			<li class="tab col s3"><a href="#genre-artists">Top Artists</a></li>
+			<li class="tab col s3"><a href="#genre-artists">Artists</a></li>
 			<li class="tab col s3"><a href="#genre-albums">Albums</a></li>
 			<li class="tab col s3"><a href="#genre-stations">Stations</a></li>
 		</ul>
 	</div>
 	{% if genre.hasChildren %}
 	<div id="genre-children" class="col s12">
-		<div class="carousel" id="subgenres-carousel">
+		<div class="carousel">
 			{% for child in genre.children %}
 			<a class="carousel-item" href="#{{child.name}}!" data-id="{{child.id}}">
 				<h5 class="center-align">{{child.name}}</h5>
@@ -39,7 +39,7 @@
 	</div>
 	{% endif %}
 	<div id="genre-artists" class="col s12">
-		<div class="carousel" id="artists-carousel">
+		<div class="carousel">
 			{% for artist in genre.artists %}
 			<a class="carousel-item" href="#{{artist.name}}!" data-id="{{artist.id}}">
 				<h5 class="center-align">{{artist.name}}</h5>
@@ -49,6 +49,14 @@
 		</div>
 	</div>
 	<div id="genre-albums" class="col s12">
+		<div class="carousel">
+			{% for album in genre.albums %}
+			<a class="carousel-item" href="#{{album.name}}!" data-id="{{album.id}}">
+				<h5 class="center-align">{{album.name}}</h5>
+				<img src="{{album.image}}">
+			</a>
+			{% endfor %}
+		</div>
 	</div>
 	<div id="genre-stations" class="col s12">
 	</div>

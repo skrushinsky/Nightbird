@@ -77,11 +77,17 @@ ul.horizontal li a {
 }
 
 #genre-page .carousel {
-	height: 220px;
+	height: 300px;
 }
 
-#artist-bio {
-	margin: 10px;
+#artist-bio .card-panel {
+	height: 360px;
+}
+
+div.text-container {
+	overflow: auto;
+	height: 100%;
+	width: 100%;
 }
 
 #genre-description {
@@ -90,6 +96,10 @@ ul.horizontal li a {
 }
 
 p.blurb  {
-    font-size: 18px;
+    font-size: 16px;
     line-height: 1.4em;
+}
+
+h2.header {
+	font-size: 28px;
 }

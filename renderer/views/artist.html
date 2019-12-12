@@ -40,14 +40,16 @@
 			<li class="tab col s3"><a href="#artist-albums">Albums</a></li>
 		</ul>
 	</div>
-	<div id="artist-bio" class="col s12  indigo lighten-5">
-		{% for bio in artist.bios %}
-		<p>
-			{{bio.bio}}
-		</p>
-		<br>
-		&dash; {{bio.author}}{% if bio.publishDate %}, {{bio.publishDate}}{% endif %}
-		{% endfor %}
+	<div id="artist-bio" class="col s12">
+		<div class="card-panel indigo lighten-5">
+			<div class="text-container">
+			{% for bio in artist.bios %}
+			<p>{{bio.bio}}</p>
+			<br>
+			&dash; {{bio.author}}{% if bio.publishDate %}, {{bio.publishDate}}{% endif %}
+			{% endfor %}
+			</div>
+        </div>
 	</div>
 	<div id="artist-albums" class="col s12">
 		<div class="carousel" id="artist-albums-carousel"></div>
@@ -61,4 +63,5 @@
     height: 193
   });
   $('.slider').slider('next');
+  $('.tabs').tabs();
 </script>

@@ -76,15 +76,41 @@ async function getGenre(id) {
     } else {
         genre.hasChildren = false;
     }
+    const albums = await fetchData(`${API_ROOT}/genres/${id}/albums/top`);
+    genre.albums = albums.albums.map( album => {
+        album.image =  `${IMG_ROOT}/v2/albums/${album.id}/images/300x300.jpg`;
+        return album;
+    });
     return genre;
 }
 
 async function getArtist(id) {
     const data = await fetchData(`${API_ROOT}/artists/${id}`);
     const artist = data.artists[0];
-    console.debug('artist: %s', JSON.stringify(artist));
+    //console.debug('artist: %s', JSON.stringify(artist));
     artist.image = `${IMG_ROOT}/v2/artists/${id}/images/356x237.jpg`;
     return artist;
+}
+
+async function getAlbum(id) {
+    const data = await fetchData(`${API_ROOT}/albums/${id}`);
+    const album = data.albums[0];
+    console.debug('album: %s', JSON.stringify(album));
+    album.image = `${IMG_ROOT}/v2/albums/${id}/images/300x300.jpg`;
+    album.years = ['originallyReleased', 'released']
+        .filter( k => album[k] )
+        .map( k => new Date( album[k]).getFullYear());
+    album.years = album.years.filter((item, index) => album.years.indexOf(item) === index);
+    const tracksData = await fetchData(album.links.tracks.href);
+    const tracks = tracksData.tracks;
+    const discs = [];
+    for (let i = 1; i <= album.discCount; i++) {
+        discs.push(tracks.filter(t => t.disc === i));
+    }
+    album.discs = discs;
+
+    console.log('tracks: %s', JSON.stringify(tracks));
+    return album;
 }
 
 
@@ -141,6 +167,10 @@ router.addRoute('/genres/:id', async (uri, params, query) => {
         const artistId = $(this).data().id;
         router.handle(`/genres/${genre.id}/artists/${artistId}?${childQuery}`);
     });
+    $(document).on('click', '#genre-albums > .carousel > .active', function() {
+        const albumId = $(this).data().id;
+        router.handle(`/genres/${genre.id}/albums/${albumId}?${childQuery}`);
+    });
 
     const path = history.map( createGenresBreadcrumbsItem );
     path.unshift({title: 'Genres', href: '/genres'});
@@ -151,21 +181,23 @@ router.addRoute('/genres/:id', async (uri, params, query) => {
 router.addRoute('/genres/:genre_id/artists/:artist_id', async (uri, params, query) => {
     console.log('Handling artist');
     const history = getHistory(query);
-    // history.push({
-    //     id: params.genre_id,
-    //     name: new URLSearchParams(query).getAll('genre_name')
-    // });
     const artist = await getArtist(params.artist_id);
     await renderTemplate('artist.html', {artist});
-
-    $('.tabs').tabs();
-    $('.tabs').on('click', 'a', function(e) {
-        $('.carousel').carousel();
-    });
 
     const path = history.map( createGenresBreadcrumbsItem );
     path.unshift({title: 'Genres', href: '/genres'});
     path.push({ title: artist.name });
+    await renderTemplate('breadcrumbs.html', { path }, '#breadcrumbs');
+});
+
+router.addRoute('/genres/:genre_id/albums/:album_id', async (uri, params, query) => {
+    console.log('Handling album');
+    const history = getHistory(query);
+    const album = await getAlbum(params.album_id);
+    await renderTemplate('album.html', {album});
+    const path = history.map( createGenresBreadcrumbsItem );
+    path.unshift({title: 'Genres', href: '/genres'});
+    path.push({ title: album.name });
     await renderTemplate('breadcrumbs.html', { path }, '#breadcrumbs');
 });
 
