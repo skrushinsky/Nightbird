@@ -52,7 +52,14 @@
         </div>
 	</div>
 	<div id="artist-albums" class="col s12">
-		<div class="carousel" id="artist-albums-carousel"></div>
+		<div class="carousel">
+			{% for album in artist.albums %}
+			<a class="carousel-item" href="#{{album.name}}!" data-id="{{album.id}}">
+				<h5 class="center-align">{{album.name}}</h5>
+				<img src="{{album.image}}">
+			</a>
+			{% endfor %}
+		</div>
 	</div>
 </div>
 <script>
@@ -63,5 +70,6 @@
     height: 193
   });
   $('.slider').slider('next');
+  $('.carousel').carousel({ numVisible: 7 });  
   $('.tabs').tabs();
 </script>

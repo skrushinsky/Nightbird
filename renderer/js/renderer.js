@@ -89,6 +89,11 @@ async function getArtist(id) {
     const artist = data.artists[0];
     //console.debug('artist: %s', JSON.stringify(artist));
     artist.image = `${IMG_ROOT}/v2/artists/${id}/images/356x237.jpg`;
+    const albums = await fetchData(`${API_ROOT}/artists/${id}/albums`);
+    artist.albums = albums.albums.map( album => {
+        album.image =  `${IMG_ROOT}/v2/albums/${album.id}/images/300x300.jpg`;
+        return album;
+    });
     return artist;
 }
 
@@ -182,8 +187,12 @@ router.addRoute('/genres/:genre_id/artists/:artist_id', async (uri, params, quer
     console.log('Handling artist');
     const history = getHistory(query);
     const artist = await getArtist(params.artist_id);
+    childQuery = history.map(p => `parent=${p.id}|${p.name}`).join('&');
     await renderTemplate('artist.html', {artist});
-
+    $(document).on('click', '#artist-page > .carousel > .active', function() {
+        const albumId = $(this).data().id;
+        router.handle(`/genres/${params.genre_id}/artists/${params.artist_id}/albums/${albumId}?${childQuery}`);
+    });
     const path = history.map( createGenresBreadcrumbsItem );
     path.unshift({title: 'Genres', href: '/genres'});
     path.push({ title: artist.name });
