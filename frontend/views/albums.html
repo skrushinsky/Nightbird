@@ -1,0 +1,7 @@
+<div style="height: 300px;">
+	<div uib-carousel active="albums[0].id" interval="slidesInterval">
+		<div uib-slide ng-repeat="slide in albums | orderBy:'date' track by slide.id" index="$index">
+            <img ng-src="{{slide.image}}" style="margin:auto;" ng-click="slide.callback()">
+		</div>
+	</div>
+</div>

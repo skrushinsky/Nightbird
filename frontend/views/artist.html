@@ -1,0 +1,43 @@
+<h2>{{ artist.name }}</h2>
+
+<uib-tabset active="active">
+    <uib-tab index="0" heading="Facts">
+        <div class="media">
+          <div class="media-left media-top">
+            <img src="{{ artist.image }}" class="media-object" style="width:400px">
+          </div>
+          <div class="media-body">
+              <div class="textbox">
+                  <ul class="list-group">
+                      <li ng-repeat="blurb in artist.blurbs" class="list-group-item" ng-bind-html="blurb"></li>
+                  </ul>
+              </div>
+          </div>
+        </div>
+	</uib-tab>
+	<uib-tab index="1" heading="Bio">
+        <div class="media">
+          <div class="media-left media-top">
+            <img src="{{ artist.image }}" class="media-object" style="width:400px">
+          </div>
+          <div class="media-body">
+              <div class="textbox">
+                  <div ng-repeat="bio in artist.bios">
+                      <p ng-bind-html="bio.bio"></p>
+                      -- {{ bio.author }}<span ng-show="bio.publishDate">, {{ bio.publishDate }}</span>
+                      <hr/>
+                  </div>
+              </div>
+          </div>
+        </div>
+	</uib-tab>
+	<uib-tab index="2" heading="Albums" select="startCarousel()">
+        <div ng-include="'/views/albums.html'"></div>
+	</uib-tab>
+	<uib-tab index="3" heading="Tracks">
+	</uib-tab>
+
+	<uib-tab index="4" headingt="Stations">
+
+	</uib-tab>
+</uib-tabset>

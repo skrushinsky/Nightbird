@@ -1,9 +1,0 @@
-<div class="row">
-    {% for it in path %}
-        {% if loop.last %}
-    <span class="breadcrumb">{{ it.title }}</span>
-        {% else %}
-    <a href="{{ it.href }}" class="breadcrumb">{{ it.title }}</a>
-        {% endif %}
-    {% endfor %}
-</div>

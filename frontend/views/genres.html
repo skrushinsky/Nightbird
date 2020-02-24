@@ -1,0 +1,23 @@
+<div class="container" ng-controller="GenresController">
+	<!-- Left-aligned media object -->
+    <div class="row">
+        <div class=" col-sm-12 alert alert-warning" ng-show="notice">
+        {{ notice }}
+        </div>
+    </div>
+    <div ng-repeat="genre in genres">
+        <div class="media">
+    		<div class="media-left media-middle">
+    			<img src="{{ genre.image }}" class="media-object" style="width:80px">
+    		</div>
+    		<div class="media-body">
+    			<h4 class="media-heading">{{ genre.name }}</h4>
+                <p>
+    			<span ng-bind-html="genre.description | limitTo : 240"></span>...
+                </p>
+                <a href="#!/genres/{{ genre.id }}">More...</a>
+    		</div>
+    	</div>
+    	<hr>
+    </div>
+</div>

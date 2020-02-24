@@ -1,0 +1,23 @@
+<div ng-controller="GenreController">
+    <h2>{{ genre.name }}</h2>
+
+    <uib-tabset active="active">
+      <uib-tab index="0" heading="Summary"">
+          <div class="well">
+              <p ng-bind-html="genre.description"></p>
+          </div>
+      </uib-tab>
+      <uib-tab index="1" heading="Artists" select="startCarousel()">
+          <div ng-include="'/views/artists.html'"></div>
+      </uib-tab>
+      <uib-tab index="2" heading="Sub-Genres" ng-show="genre.subgenres.length > 0">
+          <div class="list-group">
+            <a ng-repeat="subgenre in genre.subgenres" href="#!/genres/{{ subgenre.id }}" class="list-group-item">{{ subgenre.name }}</a>
+          </div>
+      </uib-tab>
+
+      <uib-tab index="3" headingt="Stations">
+
+      </uib-tab>
+    </uib-tabset>
+</div>
