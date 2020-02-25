@@ -1,4 +1,4 @@
-# nighrbird
+# Nightrbird
 
 
 ## Requirements
