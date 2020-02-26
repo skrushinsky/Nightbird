@@ -5,7 +5,7 @@ angular.module('app')
 		'Content-Type': 'application/json;charset=utf-8',
 		apikey: 'Y2JmZGI2ZmMtM2RiZC00ZjUwLWEzMzItMGFiYjcyNDJmMjg2'
 	})
-    .factory('fetchUrl', ($q, $http, API_ROOT, HEADERS) =>
+    .factory('fetchUrl', ($q, $http, $log, API_ROOT, HEADERS) =>
 		url => {
             console.log('Fetching %s...', url);
 			return $http({
@@ -15,8 +15,8 @@ angular.module('app')
 			}).then(response => {
 				return response.data
 			}, response => {
-				$log.warn(response.data.error.message);
-				return $q.reject(response.data.error.message);
+				$log.warn(response.error.message);
+				return $q.reject(response.error.message);
 			});
 		}
 	)

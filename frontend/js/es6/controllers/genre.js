@@ -4,12 +4,6 @@ angular.module('app').controller('GenreController', ($scope, $log, $route, $rout
     const genreId = $routeParams.genreId;
     $scope.artists = [];
 
-    $scope.slidesInterval = 0;
-    $scope.startCarousel = () => {
-        $log.debug('Starting carousel');
-        $scope.slidesInterval = 5000;
-    };
-
     const fetchSubgenres = genre => {
         if (genre.links['childGenres']) {
             fetchUrl(genre.links.childGenres.href)
@@ -27,8 +21,12 @@ angular.module('app').controller('GenreController', ($scope, $log, $route, $rout
         .then(
             data => {
                 $scope.artists = data.artists.map( artist => {
+                    $log.debug('Adding slide of artist %s - %s', artist.id, artist.name);
                     artist.image = `${IMG_ROOT}/v2/artists/${artist.id}/images/356x237.jpg`;
-                    artist.callback = () => $location.path(`/artists/${artist.id}`);
+                    artist.callback = () => {
+                        $log.debug('Going to %s', `/artists/${artist.id}`);
+                        $location.path(`/artists/${artist.id}`);
+                    };
                     return artist;
                 });
                 //console.log("artists: %s ", JSON.stringify($scope.artists));
@@ -45,9 +43,7 @@ angular.module('app').controller('GenreController', ($scope, $log, $route, $rout
             fetchSubgenres(genre);
             fetchArtists(genre);
             $scope.genre = genre;
-            $scope.stopCarousel = () => {
-                document.getElementById('#artists')
-            }
+            $scope.slidesInterval = 5000;
         }, notice => {
             $log.warn('Got notice: %s', notice);
             $scope.notice = notice;
