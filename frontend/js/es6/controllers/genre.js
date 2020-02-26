@@ -4,12 +4,6 @@ angular.module('app').controller('GenreController', ($scope, $log, $route, $rout
     const genreId = $routeParams.genreId;
     $scope.artists = [];
 
-    $scope.slidesInterval = 0;
-    $scope.startCarousel = () => {
-        $log.debug('Starting carousel');
-        $scope.slidesInterval = 5000;
-    };
-
     const fetchSubgenres = genre => {
         if (genre.links['childGenres']) {
             fetchUrl(genre.links.childGenres.href)
@@ -31,7 +25,9 @@ angular.module('app').controller('GenreController', ($scope, $log, $route, $rout
                     artist.callback = () => $location.path(`/artists/${artist.id}`);
                     return artist;
                 });
-                //console.log("artists: %s ", JSON.stringify($scope.artists));
+                if ($scope.artists.length) {
+                    $scope.activeSlide = $scope.artists[0].id;
+                }
             }, notice => {
                 $log.warn('Got notice: %s', notice);
                 $scope.notice = notice;
@@ -45,9 +41,7 @@ angular.module('app').controller('GenreController', ($scope, $log, $route, $rout
             fetchSubgenres(genre);
             fetchArtists(genre);
             $scope.genre = genre;
-            $scope.stopCarousel = () => {
-                document.getElementById('#artists')
-            }
+            $scope.slidesInterval = 5000;
         }, notice => {
             $log.warn('Got notice: %s', notice);
             $scope.notice = notice;
