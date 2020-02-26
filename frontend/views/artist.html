@@ -9,7 +9,7 @@
           <div class="media-body">
               <div class="textbox">
                   <ul class="list-group">
-                      <li ng-repeat="blurb in artist.blurbs" class="list-group-item" ng-bind-html="blurb"></li>
+                      <li ng-repeat="blurb in artist.blurbs track by $index" class="list-group-item" ng-bind-html="blurb"></li>
                   </ul>
               </div>
           </div>
@@ -31,8 +31,8 @@
           </div>
         </div>
 	</uib-tab>
-	<uib-tab index="2" heading="Albums" select="startCarousel()">
-        <div ng-include="'/views/albums.html'"></div>
+	<uib-tab index="2" heading="Albums">
+         <nb-slideshow data-slides="albums" data-active="activeSlide"/>
 	</uib-tab>
 	<uib-tab index="3" heading="Tracks">
 	</uib-tab>

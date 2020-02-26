@@ -1,7 +1,7 @@
 angular.module('app').directive('nbSlideshow', function() {
     return {
         template : `
-        <div style="height: 300px">
+        <div style="height: {{ height }}">
         	<div uib-carousel active="active" interval="interval">
         		<div uib-slide ng-repeat="slide in slides track by slide.id" index="$index">
                     <img ng-src="{{ slide.image }}" style="margin:auto;">
@@ -13,9 +13,14 @@ angular.module('app').directive('nbSlideshow', function() {
         </div>`,
         restrict: 'E',
         scope: {
-            slides: '@',
-            active: '@',
-            interval: '@'
+            slides: '=',
+            active: '=',
+            interval: '=?',
+            height: '=?'
+        },
+        controller: $scope => {
+          $scope.interval = angular.isDefined($scope.interval) ? $scope.interval : 5000;
+          $scope.height = angular.isDefined($scope.height) ? $scope.height : '300px';
         }
     }
 });

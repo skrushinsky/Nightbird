@@ -3,12 +3,6 @@ angular.module('app').controller('ArtistController', ($scope, $log, $routeParams
     const artistId = $routeParams.artistId;
     $scope.albums = [];
 
-    $scope.slidesInterval = 0;
-    $scope.startCarousel = () => {
-        $log.debug('Starting carousel');
-        $scope.slidesInterval = 5000;
-    };
-
     const fetchAlbums = artist => {
         fetchPath(`/artists/${artist.id}/albums/top`)
         .then(data => {
@@ -18,8 +12,9 @@ angular.module('app').controller('ArtistController', ($scope, $log, $routeParams
                 album.callback = () => $location.path(`/albums/${album.id}`);
             }
             $scope.albums = data.albums;
-            //.sort( (a, b) => a.date - b.date);
-            //$log.debug('Albums: %s', JSON.stringify($scope.albums));
+            if ($scope.albums.length) {
+                $scope.activeSlide = $scope.albums[0].id;
+            }
         }, notice => {
             $log.warn('Got notice: %s', notice);
             $scope.notice = notice;

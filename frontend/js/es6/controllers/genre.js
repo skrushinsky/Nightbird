@@ -21,15 +21,13 @@ angular.module('app').controller('GenreController', ($scope, $log, $route, $rout
         .then(
             data => {
                 $scope.artists = data.artists.map( artist => {
-                    $log.debug('Adding slide of artist %s - %s', artist.id, artist.name);
                     artist.image = `${IMG_ROOT}/v2/artists/${artist.id}/images/356x237.jpg`;
-                    artist.callback = () => {
-                        $log.debug('Going to %s', `/artists/${artist.id}`);
-                        $location.path(`/artists/${artist.id}`);
-                    };
+                    artist.callback = () => $location.path(`/artists/${artist.id}`);
                     return artist;
                 });
-                //console.log("artists: %s ", JSON.stringify($scope.artists));
+                if ($scope.artists.length) {
+                    $scope.activeSlide = $scope.artists[0].id;
+                }
             }, notice => {
                 $log.warn('Got notice: %s', notice);
                 $scope.notice = notice;
