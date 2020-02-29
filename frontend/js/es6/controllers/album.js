@@ -7,7 +7,7 @@ angular.module('app').controller('AlbumController', ($scope, $log, $routeParams,
         fetchPath(`/albums/${album.id}/tracks`)
         .then(data => {
             for (let i = 0; i < album.discCount; i++) {
-                $scope.discs.push(data.tracks.filter( tr => tr.disc === i + 1))
+                $scope.discs.push(data.tracks.filter( tr => 'disc' in tr && tr.disc === i + 1))
             }
             //$log.debug('discs: %s', JSON.stringify($scope.discs));
         }, notice => {

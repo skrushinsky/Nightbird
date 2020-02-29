@@ -28,7 +28,7 @@ angular.module('app').controller('GenresController', ($scope, $log, fetchPath, I
     const refreshData = () => {
         fetchPath('genres')
         .then(data => {
-            const genres = data.genres;
+            const genres = data.genres.filter( g => 'id' in g);
             for (let genre of genres) {
                 if (genre.id in iconsMap) {
                     genre.image = `/img/genres/${iconsMap[genre.id]}`;

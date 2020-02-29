@@ -8,7 +8,7 @@ angular.module('app').controller('GenreController', ($scope, $log, $route, $rout
         if (genre.links['childGenres']) {
             fetchUrl(genre.links.childGenres.href)
             .then(data => {
-                genre.subgenres = data.genres;
+                genre.subgenres = data.genres.filter( a => 'id' in a);
             }, notice => {
                 $log.warn('Got notice: %s', notice);
                 $scope.notice = notice;
@@ -20,7 +20,9 @@ angular.module('app').controller('GenreController', ($scope, $log, $route, $rout
         fetchPath(`/genres/${genre.id}/artists/top`)
         .then(
             data => {
-                $scope.artists = data.artists.map( artist => {
+                $scope.artists = data.artists
+                .filter( a => 'id' in a)
+                .map( artist => {
                     artist.image = `${IMG_ROOT}/v2/artists/${artist.id}/images/356x237.jpg`;
                     artist.callback = () => $location.path(`/artists/${artist.id}`);
                     return artist;
