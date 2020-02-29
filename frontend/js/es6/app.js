@@ -2,8 +2,9 @@
 // Application module
 
 angular.module('app', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ngAnimate', 'ui.bootstrap'])
-
-	.config(function($locationProvider) {
+	.filter('formatSeconds', $filter =>
+		s => new Date(s * 1000).toISOString().substr(14, 5)
+	).config(function($locationProvider) {
 		$locationProvider.hashPrefix('!');
 		//$locationProvider.html5Mode(true);
 	}).config(['$compileProvider',
