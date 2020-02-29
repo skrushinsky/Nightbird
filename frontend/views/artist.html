@@ -7,11 +7,9 @@
             <img src="{{ artist.image }}" class="media-object" style="width:400px">
           </div>
           <div class="media-body">
-              <div class="textbox">
-                  <ul class="list-group">
-                      <li ng-repeat="blurb in artist.blurbs track by $index" class="list-group-item" ng-bind-html="blurb"></li>
-                  </ul>
-              </div>
+              <ul class="list-group">
+                  <li ng-repeat="blurb in artist.blurbs track by $index" class="list-group-item" ng-bind-html="blurb"></li>
+              </ul>
           </div>
         </div>
 	</uib-tab>

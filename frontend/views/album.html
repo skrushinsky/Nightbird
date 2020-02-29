@@ -3,66 +3,56 @@
 <uib-tabset active="active">
     <uib-tab index="0" heading="Facts">
         <div class="media">
-          <div class="media-left media-top">
-            <img src="{{ album.image }}" class="media-object" style="width:300px">
-          </div>
-          <div class="media-body">
-              <div class="textbox">
-                  <table class="table table-striped">
-                      <tr ng-show="album.artistName">
-                          <td>Artist</td>
-                          <td>
-                              <a ng-show="artist.contributingArtists.primaryArtist"
-                                 href="`/artists/{{artist.contributingArtists.primaryArtist}}">
-                                 {{ album.artistName }}
-                              </a>
-                              <span ng-hide="artist.contributingArtists.primaryArtist">
-                                 {{ album.artistName }}
-                              </span>
-                          </td>
-                      </tr>
-                      <tr ng-show="album.released">
-                          <td>Released</td>
-                          <td>{{ album.released | date : "longDate" }}</td>
-                      </tr>
-                      <tr ng-show="album.originallyReleased">
-                          <td>Originally Released</td>
-                          <td>{{ album.originallyReleased | date : "longDate" }}</td>
-                      </tr>
-                      <tr ng-show="album.label">
-                          <td>Label</td>
-                          <td>{{ album.label }}</td>
-                      </tr>
-                      <tr ng-show="album.copyright">
-                          <td>Copyright</td>
-                          <td>{{ album.copyright }}</td>
-                      </tr>
-                  </table>
-              </div>
-          </div>
+            <div class="media-left media-top">
+                <div class="shadow" style="margin-bottom: 10px;">
+                    <img src="{{ album.image }}" class="media-object" style="width:300px">
+                </div>
+            </div>
+            <div class="media-body">
+                <table class="table table-striped">
+                    <tr ng-show="album.artistName">
+                        <td>Artist</td>
+                        <td>
+                            <a ng-show="artist.contributingArtists.primaryArtist" href="`/artists/{{artist.contributingArtists.primaryArtist}}">
+                                {{ album.artistName }}
+                            </a>
+                            <span ng-hide="artist.contributingArtists.primaryArtist">
+                                {{ album.artistName }}
+                            </span>
+                        </td>
+                    </tr>
+                    <tr ng-show="album.released">
+                        <td>Released</td>
+                        <td>{{ album.released | date : "longDate" }}</td>
+                    </tr>
+                    <tr ng-show="album.originallyReleased">
+                        <td>Originally Released</td>
+                        <td>{{ album.originallyReleased | date : "longDate" }}</td>
+                    </tr>
+                    <tr ng-show="album.label">
+                        <td>Label</td>
+                        <td>{{ album.label }}</td>
+                    </tr>
+                    <tr ng-show="album.copyright">
+                        <td>Copyright</td>
+                        <td>{{ album.copyright }}</td>
+                    </tr>
+                </table>
+            </div>
         </div>
-	</uib-tab>
-	<uib-tab index="1" heading="Tracks">
+    </uib-tab>
+    <uib-tab index="1" heading="Tracks">
         <div class="media">
-          <div class="media-left media-top">
-            <img src="{{ album.image }}" class="media-object" style="width:300px">
-          </div>
-          <div class="media-body">
-              <div class="textbox">
-                  <table class="table table-striped">
-                      <tr ng-repeat="track in tracks">
-                          <td>{{ track.index }}</td>
-                          <td width=98%>{{ track.name }}</td>
-                          <td>
-                              <audio controls>
-                                <source src="{{ track.previewURL }}" type="audio/mpeg">
-                              Your browser does not support the audio element.
-                              </audio>
-                           </td>
-                      <tr>
-                  </table>
-              </div>
-          </div>
+            <div class="media-left media-top">
+                <div class="shadow" style="margin-bottom: 10px;">
+                    <img src="{{ album.image }}" class="media-object" style="width:300px">
+                </div>
+            </div>
+            <div class="media-body">
+                <div ng-repeat="disc in discs">
+                    <nb-tracks tracks="disc" showdisc="discs.length > 1" discnum="$index + 1"/>
+                </div>
+            </div>
         </div>
-	</uib-tab>
+    </uib-tab>
 </uib-tabset>

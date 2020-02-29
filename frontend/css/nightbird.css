@@ -20,6 +20,11 @@ nav {
     padding-left: 10px;
 }
 
+td {
+	vertical-align: middle !important;
+	white-space: nowrap;
+}
+
 .navbar-brand {
     font-family: "Roboto-Black" !important;
 	font-weight: bold;
@@ -55,5 +60,9 @@ nav {
     overflow: scroll;
     padding-left: 10px;
     padding-right: 10px;
-    height: 266px !important;
+    /* height: 266px !important; */
+}
+
+.shadow {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
