@@ -1,6 +1,6 @@
 /* Controllers */
 
-angular.module('app').controller('GenreController', ($scope, $log, $route, $routeParams, $location, fetchPath, fetchUrl, getGenre, IMG_ROOT) => {
+angular.module('app').controller('GenreController', ($scope, $log, $route, $routeParams, $location, fetchPath, fetchUrl, getGenre, fetchTracks, IMG_ROOT) => {
     const genreId = $routeParams.genreId;
     $scope.artists = [];
 
@@ -37,11 +37,25 @@ angular.module('app').controller('GenreController', ($scope, $log, $route, $rout
         );
     };
 
+    const fetchGenreTracks = genre => {
+        fetchTracks(`/genres/${genre.id}/tracks/top`)
+        .then(
+            tracks => {
+                $scope.tracks = tracks;
+                //$log.debug('Tracks: %s', JSON.stringify(tracks));
+            }, notice => {
+                $log.warn('Got notice: %s', notice);
+                $scope.notice = notice;
+            }
+        );
+    };
+
     const refreshData = () => {
         getGenre(genreId)
         .then(genre => {
             fetchSubgenres(genre);
             fetchArtists(genre);
+            fetchGenreTracks(genre);
             $scope.genre = genre;
             $scope.slidesInterval = 5000;
         }, notice => {

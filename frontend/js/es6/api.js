@@ -33,4 +33,10 @@ angular.module('app')
                 }
             }, err => $q.reject(err))
         }
+    ).factory('fetchTracks', ($q, fetchPath) =>
+         path => {
+             return fetchPath(path).then(data => {
+                 return data.tracks.filter( t => 'id' in t);
+             }, err => $q.reject(err));
+         }
     );

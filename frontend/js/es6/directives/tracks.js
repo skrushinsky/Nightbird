@@ -9,6 +9,9 @@ angular.module('app').directive('nbTracks', function() {
                     {{ track.name  | limitTo : 30 }}
                     <span ng-if="track.name.length > 30">...</span>
                 </td>
+                <td ng-if="showartist">
+                    {{ track.artistName }}
+                </td>                
                 <td ng-if="showalbum">
                     {{ track.albumName | limitTo : 30 }}
                     <span ng-if="track.albumName.length > 30">...</span>
@@ -29,10 +32,12 @@ angular.module('app').directive('nbTracks', function() {
             showdisc: '=?',
             discnum: '=?',
             showalbum: '=?',
+            showartist: '=?'
         },
         controller: $scope => {
             $scope.showdisc = angular.isDefined($scope.showdisc) ? $scope.showdisc : false;
             $scope.showalbum = angular.isDefined($scope.showalbum) ? $scope.showalbum : false;
+            $scope.showartist = angular.isDefined($scope.showartist) ? $scope.showartist : false;
             $scope.disc = angular.isDefined($scope.discnum) ? $scope.discnum : 1;
         }
     }

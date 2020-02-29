@@ -15,7 +15,9 @@
             <a ng-repeat="subgenre in genre.subgenres" href="#!/genres/{{ subgenre.id }}" class="list-group-item">{{ subgenre.name }}</a>
           </div>
       </uib-tab>
-
+      <uib-tab index="3" heading="Tracks">
+          <nb-tracks tracks="tracks" showdisc="false" showalbum="true" showartist="true"/>
+  	</uib-tab>
       <uib-tab index="3" headingt="Stations">
 
       </uib-tab>
