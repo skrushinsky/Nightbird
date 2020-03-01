@@ -19,7 +19,7 @@ angular.module('app').directive('nbTracks', function() {
                 <td>{{ track.playbackSeconds | formatSeconds }}</td>
                 <td>
                     <audio controls>
-                        <source src="{{ track.previewURL }}" type="audio/mpeg">
+                        <source ng-src="{{ track.previewURL }}" type="audio/mpeg">
                         Your browser does not support the audio element.
                     </audio>
                 </td>

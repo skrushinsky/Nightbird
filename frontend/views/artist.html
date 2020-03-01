@@ -4,7 +4,7 @@
     <uib-tab index="0" heading="Facts">
         <div class="media">
           <div class="media-left media-top">
-            <img src="{{ artist.image }}" class="media-object" style="width:400px">
+              <nb-picture src="artist.image" />
           </div>
           <div class="media-body">
               <ul class="list-group">
@@ -15,9 +15,9 @@
 	</uib-tab>
 	<uib-tab index="1" heading="Bio">
         <div class="media">
-          <div class="media-left media-top">
-            <img src="{{ artist.image }}" class="media-object" style="width:400px">
-          </div>
+            <div class="media-left media-top">
+                <nb-picture src="artist.image" />
+            </div>
           <div class="media-body">
               <div ng-repeat="bio in artist.bios">
                   <p ng-bind-html="bio.bio"></p>

@@ -8,7 +8,7 @@
     <div ng-repeat="genre in genres">
         <div class="media">
     		<div class="media-left media-middle">
-    			<img src="{{ genre.image }}" class="media-object" style="width:80px">
+    			<img ng-src="{{ genre.image }}" class="media-object" style="width:80px">
     		</div>
     		<div class="media-body">
     			<h4 class="media-heading">{{ genre.name }}</h4>

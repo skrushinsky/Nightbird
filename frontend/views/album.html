@@ -4,9 +4,7 @@
     <uib-tab index="0" heading="Facts">
         <div class="media">
             <div class="media-left media-top">
-                <div class="shadow" style="margin-bottom: 10px;">
-                    <img src="{{ album.image }}" class="media-object" style="width:300px">
-                </div>
+                <nb-picture src="album.image" />
             </div>
             <div class="media-body">
                 <table class="table table-striped">
@@ -44,9 +42,7 @@
     <uib-tab index="1" heading="Tracks">
         <div class="media">
             <div class="media-left media-top">
-                <div class="shadow" style="margin-bottom: 10px;">
-                    <img src="{{ album.image }}" class="media-object" style="width:300px">
-                </div>
+                <nb-picture src="album.image" />
             </div>
             <div class="media-body">
                 <div ng-repeat="disc in discs">
