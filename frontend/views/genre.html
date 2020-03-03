@@ -1,25 +1,25 @@
 <div ng-controller="GenreController">
-    <h2>{{ genre.name }}</h2>
+	<h2>{{ genre.name }}</h2>
 
-    <uib-tabset active="0">
-      <uib-tab index="0" heading="Summary"">
-          <div class="well">
-              <p ng-bind-html="genre.description"></p>
-          </div>
-      </uib-tab>
-      <uib-tab index="1" heading="Artists">
-          <nb-slideshow data-slides="artists" data-active="activeSlide"/>
-      </uib-tab>
-      <uib-tab index="2" heading="Sub-Genres" ng-show="genre.subgenres.length > 0">
-          <div class="list-group">
-            <a ng-repeat="subgenre in genre.subgenres" href="#!/genres/{{ subgenre.id }}" class="list-group-item">{{ subgenre.name }}</a>
-          </div>
-      </uib-tab>
-      <uib-tab index="3" heading="Tracks">
-          <nb-tracks tracks="tracks" showdisc="false" showalbum="true" showartist="true"/>
-  	</uib-tab>
-      <uib-tab index="3" headingt="Stations">
+	<uib-tabset active="0">
+		<uib-tab index="0" heading="Summary">
+			<div class="well">
+				<p ng-bind-html="genre.description"></p>
+			</div>
+		</uib-tab>
+		<uib-tab index="1" heading="Artists">
+			<nb-slideshow data-slides="artists" data-active="activeSlide" />
+		</uib-tab>
+		<uib-tab index="2" heading="Sub-Genres" ng-show="genre.subgenres.length > 0">
+			<div class="list-group">
+				<a ng-repeat="subgenre in genre.subgenres" href="/genres/{{ subgenre.id }}" class="list-group-item">{{ subgenre.name }}</a>
+			</div>
+		</uib-tab>
+		<uib-tab index="3" heading="Tracks">
+			<nb-tracks tracks="tracks" showdisc="false" showalbum="true" showartist="true" />
+		</uib-tab>
+		<uib-tab index="3" headingt="Stations">
 
-      </uib-tab>
-    </uib-tabset>
+		</uib-tab>
+	</uib-tabset>
 </div>
