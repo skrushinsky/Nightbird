@@ -8,9 +8,9 @@ angular.module('app').directive('nbSlideshow', function() {
               </div>
             </div>
         	<div ng-if="slides && slides.length > 0" uib-carousel active="active" interval="interval">
-        		<div uib-slide ng-repeat="slide in slides track by slide.id" index="$index">
+        		<div uib-slide ng-repeat="slide in slides track by slide.id" index="$index" ng-click="slide.callback()">
                     <img ng-src="{{ slide.image }}" style="margin:auto;">
-        			<div class="carousel-caption" ng-click="slide.callback()">
+        			<div class="carousel-caption">
         				<h4>{{slide.name}}</h4>
         			</div>
         		</div>

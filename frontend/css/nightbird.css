@@ -54,13 +54,7 @@ td {
 
 .carousel-caption h4 {
     font-size: 32px;
-}
-
-.textbox {
-    overflow: scroll;
-    padding-left: 10px;
-    padding-right: 10px;
-    /* height: 266px !important; */
+    color: yellow;
 }
 
 .shadow {
