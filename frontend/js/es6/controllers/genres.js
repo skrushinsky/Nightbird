@@ -1,6 +1,6 @@
 /* Controllers */
 
-angular.module('app').controller('GenresController', ($scope, $log, fetchPath, IMG_ROOT) => {
+angular.module('app').controller('GenresController', ($scope, $log, $location, fetchPath, IMG_ROOT) => {
     const iconsMap = {
         'g.115': '14-pop.svg',
         'g.5': '28-art rock.svg',
@@ -38,11 +38,13 @@ angular.module('app').controller('GenresController', ($scope, $log, fetchPath, I
                 }
             }
             $scope.genres = genres;
+            $scope.gotoGenre = id => $location.path(`/genres/${id}`);
         }, notice => {
             $log.warn('Got notice: %s', notice);
             $scope.notice = notice;
         });
     }
-;
+
+
     refreshData();
 });
