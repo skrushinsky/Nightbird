@@ -13,6 +13,18 @@ angular.module('app').config(function($routeProvider, $locationProvider) {
 			controller: 'GenreController',
 			templateUrl: '/views/genre.html'
 		})
+		.when('/genres/:genreId/children', {
+			controller: 'SubGenresController',
+			templateUrl: '/views/subgenres.html'
+		})
+		.when('/genres/:genreId/tracks', {
+			controller: 'GenreTracksController',
+			templateUrl: '/views/genre_tracks.html'
+		})
+		.when('/genres/:genreId/artists', {
+			controller: 'GenreArtistsController',
+			templateUrl: '/views/genre_artists.html'
+		})
 		.when('/artists/:artistId', {
 			controller: 'ArtistController',
 			templateUrl: '/views/artist.html'
