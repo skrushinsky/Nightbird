@@ -1,9 +1,17 @@
 <div class="container" ng-controller="GenresController">
-	<!-- Left-aligned media object -->
-    <div class="row">
-        <div class=" col-sm-12 alert alert-warning" ng-show="notice">
-        {{ notice }}
+    <div class="row" style="margin-bottom: 1.2em;">
+        <div class="col-sm-12">
+            <h2 style="margin: 0;">Genres</h2>
         </div>
     </div>
-    <nb-genres data-genres="genres" />
+    <div class="row">
+        <div class=" col-sm-12 alert alert-warning" ng-show="notice">
+            {{ notice }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <nb-genres data-genres="genres" />
+        </div>
+    </div>
 </div>
