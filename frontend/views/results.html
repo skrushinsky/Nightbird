@@ -1,0 +1,17 @@
+<div class="container" ng-controller="ResultsController">
+    <div class="row" style="margin-bottom: 1.2em;">
+        <div class="col-sm-12">
+            <h2 style="margin: 0;">Search results</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class=" col-sm-12 alert alert-warning" ng-show="notice">
+            {{ notice }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <nb-results data-results="results" />
+        </div>
+    </div>
+</div>

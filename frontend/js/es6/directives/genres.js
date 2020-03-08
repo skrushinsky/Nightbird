@@ -25,7 +25,7 @@ angular.module('app').directive('nbGenres', function( ) {
         scope: {
             genres: '='
         },
-        controller: ($scope, $location, $log) => {
+        controller: ($scope, $location) => {
             $scope.gotoGenre = id => $location.path(`/genres/${id}`);
         }
     }

@@ -1,6 +1,6 @@
 /* Controllers */
 
-angular.module('app').controller('GenreArtistsController', ($scope, $log, $route, $routeParams, $location, fetchPath, getGenre, IMG_ROOT) => {
+angular.module('app').controller('GenreArtistsController', ($scope, $log, $route, $routeParams, $location, fetchPath, loadImage, getGenre, IMG_ROOT) => {
     const genreId = $routeParams.genreId;
     $scope.artists = [];
 
@@ -14,7 +14,10 @@ angular.module('app').controller('GenreArtistsController', ($scope, $log, $route
                         data => {
                             $scope.artists = data.artists.filter(a => 'id' in a)
                                 .map(artist => {
-                                    artist.image = `${IMG_ROOT}/v2/artists/${artist.id}/images/356x237.jpg`;
+                                    loadImage(
+                                        `${IMG_ROOT}/v2/artists/${artist.id}/images/356x237.jpg`,
+                                        '/img/default/artist.jpg')
+                                    .then(src => artist.image = src);                                    
                                     artist.callback = () => $location.path(`/artists/${artist.id}`);
                                     return artist;
                                 });

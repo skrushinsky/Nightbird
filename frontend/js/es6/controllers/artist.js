@@ -1,4 +1,4 @@
-angular.module('app').controller('ArtistController', ($scope, $log, $routeParams, $location, fetchPath, IMG_ROOT) => {
+angular.module('app').controller('ArtistController', ($scope, $log, $routeParams, $location, fetchPath, loadImage, IMG_ROOT) => {
 
     const artistId = $routeParams.artistId;
     $scope.albums = [];
@@ -9,7 +9,10 @@ angular.module('app').controller('ArtistController', ($scope, $log, $routeParams
         .then(data => {
             for(let album of data.albums) {
                 album.date = Date.parse(album.originallyReleased);
-                album.image = `${IMG_ROOT}/v2/albums/${album.id}/images/300x300.jpg`;
+                loadImage(
+                     `${IMG_ROOT}/v2/albums/${album.id}/images/300x300.jpg`,
+                    '/img/default/album.jpg')
+                .then(src => album.image = src);
                 album.callback = () => $location.path(`/albums/${album.id}`);
             }
             $scope.albums = data.albums.filter( a => 'id' in a);
@@ -37,7 +40,10 @@ angular.module('app').controller('ArtistController', ($scope, $log, $routeParams
         .then(
             data => {
                 const artist = data.artists[0];
-                artist.image = `${IMG_ROOT}/v2/artists/${artistId}/images/356x237.jpg`;
+                loadImage(
+                    `${IMG_ROOT}/v2/artists/${artistId}/images/356x237.jpg`,
+                    '/img/default/artist.jpg')
+                .then(src => artist.image = src);
                 fetchAlbums(artist);
                 fetchTracks(artist);
                 $scope.artist = artist;

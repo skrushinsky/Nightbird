@@ -33,6 +33,10 @@ angular.module('app').config(function($routeProvider, $locationProvider) {
 			controller: 'AlbumController',
 			templateUrl: '/views/album.html'
 		})
+		.when('/search/results', {
+			controller: 'ResultsController',
+			templateUrl: '/views/results.html'
+		})
 		.otherwise({
 			redirectTo: '/genres'
 		});

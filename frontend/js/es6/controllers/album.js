@@ -1,4 +1,4 @@
-angular.module('app').controller('AlbumController', ($scope, $log, $routeParams, fetchPath, IMG_ROOT) => {
+angular.module('app').controller('AlbumController', ($scope, $log, $routeParams, fetchPath, loadImage, IMG_ROOT) => {
 
     const albumId = $routeParams.albumId;
     $scope.discs = []
@@ -21,7 +21,11 @@ angular.module('app').controller('AlbumController', ($scope, $log, $routeParams,
         .then(
             data => {
                 const album = data.albums[0];
-                album.image = `${IMG_ROOT}/v2/albums/${albumId}/images/300x300.jpg`;
+                loadImage(
+                     `${IMG_ROOT}/v2/albums/${albumId}/images/300x300.jpg`,
+                    '/img/default/album.jpg')
+                .then(src => album.image = src);
+
                 fetchTracks(album);
                 $scope.album = album;
             }, notice => {
