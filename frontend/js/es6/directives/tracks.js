@@ -3,6 +3,14 @@ angular.module('app').directive('nbTracks', function() {
         template : `
         <table class="table table-striped">
             <caption ng-if="showdisc">Disc #{{ discnum }}</caption>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th ng-if="showartist">Artist</th>
+              <th ng-if="showalbum">Album</th>
+              <th>Sec.</th>
+              <th></th>
+            </tr>
             <tr ng-repeat="track in tracks track by track.id">
                 <td><span ng-if="showdisc">{{ track.disc }} - </span>{{ $index + 1 }}.</td>
                 <td>
@@ -11,7 +19,7 @@ angular.module('app').directive('nbTracks', function() {
                 </td>
                 <td ng-if="showartist">
                     {{ track.artistName }}
-                </td>                
+                </td>
                 <td ng-if="showalbum">
                     {{ track.albumName | limitTo : 30 }}
                     <span ng-if="track.albumName.length > 30">...</span>
