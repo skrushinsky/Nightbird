@@ -33,6 +33,16 @@ angular.module('app')
                 }
             }, err => $q.reject(err))
         }
+    ).factory('getArtist', ($q, fetchPath) =>
+        id => {
+            return fetchPath(`artists/${id}`).then(data => {
+                if (data.artists.length === 0) {
+                    return $q.reject(`Artist ${id} not found`);
+                } else {
+                    return data.artists[0];
+                }
+            }, err => $q.reject(err))
+        }
     ).factory('fetchTracks', ($q, fetchPath) =>
         path => {
             return fetchPath(path).then(data => {

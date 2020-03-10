@@ -1,6 +1,6 @@
 /* Controllers */
 
-angular.module('app').controller('GenresController', ($scope, $log, fetchPath, IMG_ROOT) => {
+angular.module('app').controller('GenresListController', ($scope, $log, fetchPath, IMG_ROOT) => {
     const iconsMap = {
         'g.115': '14-pop.svg',
         'g.5': '28-art rock.svg',

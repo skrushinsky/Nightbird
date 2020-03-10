@@ -6,8 +6,8 @@ angular.module('app').config(function($routeProvider, $locationProvider) {
 			redirectTo: '/genres'
 		})
 		.when('/genres', {
-			controller: 'GenresController',
-			templateUrl: '/views/genres.html'
+			controller: 'GenresListController',
+			templateUrl: '/views/genre/index.html'
 		})
 		.when('/genres/:genreId', {
 			controller: 'GenreController',
@@ -15,19 +15,23 @@ angular.module('app').config(function($routeProvider, $locationProvider) {
 		})
 		.when('/genres/:genreId/children', {
 			controller: 'SubGenresController',
-			templateUrl: '/views/subgenres.html'
+			templateUrl: '/views/genre/subgenres.html'
 		})
 		.when('/genres/:genreId/tracks', {
 			controller: 'GenreTracksController',
-			templateUrl: '/views/genre_tracks.html'
+			templateUrl: '/views/genre/tracks.html'
 		})
 		.when('/genres/:genreId/artists', {
 			controller: 'GenreArtistsController',
-			templateUrl: '/views/genre_artists.html'
+			templateUrl: '/views/genre/artists.html'
 		})
 		.when('/artists/:artistId', {
 			controller: 'ArtistController',
 			templateUrl: '/views/artist.html'
+		})
+		.when('/artists/:artistId/albums', {
+			controller: 'ArtistAlbumsController',
+			templateUrl: '/views/artist/albums.html'
 		})
 		.when('/albums/:albumId', {
 			controller: 'AlbumController',

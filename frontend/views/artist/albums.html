@@ -1,0 +1,20 @@
+<div ng-controller="ArtistAlbumsController">
+	<div class="row" style="margin-bottom: 1.2em;">
+		<div class="col-sm-6">
+			<h2 style="margin: 0;">{{ artist.name }} : Albums
+		</div>
+		<div class="col-sm-6">
+			<button type="button" class="btn btn-primary btn-sm pull-right" ng-click="gotoArtist(artist.id)">
+			  <span class="glyphicon glyphicon-chevron-left"></span> Back to {{ artist.name }}
+			</button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="jumbotron">
+				<h3>Albums</h3>
+				<nb-slideshow data-slides="albums" data-active="activeSlide" />
+			</div>
+		</div>
+	</div>
+</div>

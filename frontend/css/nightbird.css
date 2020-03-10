@@ -64,3 +64,10 @@ td {
 .yellow-bg {
 	background-color: #ffd966;
 }
+
+.bio {
+	margin-top: 24px;
+	padding-left: 15px;
+	padding-right: 15px;
+	font-size: 14px;
+}

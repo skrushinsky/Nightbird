@@ -1,15 +1,55 @@
+<div ng-controller="ArtistController">
+	<div class="row" style="margin-bottom: 1.2em;">
+		<div class="col-sm-12">
+			<h2 style="margin: 0;">{{ artist.name }}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+            <ul class="nav nav-pills">
+              <li role="presentation"><a href="/artists/{{ artist.id }}/albums">Albums</a></li>
+              <li role="presentation"><a href="/artists/{{ artist.id }}/tracks">Top Tracks</a></li>
+            </ul>
+		</div>
+	</div>
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-6 media">
+            <div class="media-left media-top">
+                <nb-picture src="artist.image" />
+            </div>
+            <div class="media-body">
+                <nb-blurbs ng-if="artist.blurbs.length > 0" blurbs="artist.blurbs" height="200"/>
+            </div>
+        </div>
+        <div class="bio col-sm-12 col-md-12 col-lg-6" ng-repeat="bio in artist.bios">
+            <p ng-bind-html="bio.bio"></p>
+            -- {{ bio.author }}<span ng-show="bio.publishDate">, {{ bio.publishDate }}</span>
+            <hr/>
+        </div>
+    </div>
+
+</div>
+
+<!--
 <h2>{{ artist.name }}</h2>
+
+<ul class="nav nav-pills">
+  <li role="presentation"><a href="/artists/{{ artist.id }}/albums">Albums</a></li>
+  <li role="presentation"><a href="/artists/{{ artist.id }}/tracks">Top Tracks</a></li>
+</ul>
+
+<div class="media">
+  <div class="media-left media-top">
+      <nb-picture src="artist.image" />
+  </div>
+  <div class="media-body">
+      <nb-blurbs ng-if="artist.blurbs.length > 0" blurbs="artist.blurbs" height="200"/>
+  </div>
+</div>
 
 <uib-tabset active="active">
     <uib-tab index="0" heading="Facts">
-        <div class="media">
-          <div class="media-left media-top">
-              <nb-picture src="artist.image" />
-          </div>
-          <div class="media-body">
-              <nb-blurbs ng-if="artist.blurbs.length > 0" blurbs="artist.blurbs" height="200"/>
-          </div>
-        </div>
+
 	</uib-tab>
 	<uib-tab index="1" heading="Bio">
         <div class="media">
@@ -35,4 +75,4 @@
 	<uib-tab index="4" headingt="Stations">
 
 	</uib-tab>
-</uib-tabset>
+</uib-tabset> -->
