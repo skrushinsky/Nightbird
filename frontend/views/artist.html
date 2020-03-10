@@ -7,9 +7,7 @@
               <nb-picture src="artist.image" />
           </div>
           <div class="media-body">
-              <ul class="list-group">
-                  <li ng-repeat="blurb in artist.blurbs track by $index" class="list-group-item" ng-bind-html="blurb"></li>
-              </ul>
+              <nb-blurbs ng-if="artist.blurbs.length > 0" blurbs="artist.blurbs" height="200"/>
           </div>
         </div>
 	</uib-tab>
