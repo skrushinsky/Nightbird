@@ -16,4 +16,17 @@ angular.module('app')
             }
             return a;
         }
-    )
+    ).factory('nameComparator', () => {
+        return (a, b) => {
+            if (a.name < b.name) {
+                return -1;
+            }
+            if (a.name > b.name) {
+                return 1;
+            }
+            return 0;
+        }
+    }).factory('dateComparator', () => {
+        return (a, b) => a.date.getTime() - b.date.getTime()
+    }
+)

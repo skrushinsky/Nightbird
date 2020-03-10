@@ -1,7 +1,12 @@
 /* Controllers */
 
-angular.module('app').controller('ArtistAlbumsController', ($scope, $log, $route, $routeParams, $location, fetchPath, getArtist, loadImage, IMG_ROOT) => {
+angular.module('app').controller('ArtistAlbumsController', ($scope, $log, $route, $routeParams, $location, fetchPath, getArtist, loadImage, dateComparator, IMG_ROOT) => {
     $scope.albums = [];
+
+    const loadAlbumImage = album => loadImage(
+        `${IMG_ROOT}/v2/albums/${album.id}/images/300x300.jpg`,
+        '/img/default/album.jpg'
+    ).then(src => album.image = src);
 
     const refreshData = () => {
         getArtist($routeParams.artistId)
@@ -11,18 +16,12 @@ angular.module('app').controller('ArtistAlbumsController', ($scope, $log, $route
                 $scope.gotoArtist = id => $location.path(`/artists/${id}`);
                 fetchPath(`/artists/${artist.id}/albums/top`)
                 .then(data => {
-                    for(let album of data.albums) {
-                        if (!('id' in album)) {
-                            continue;
-                        }
-                        album.date = Date.parse(album.originallyReleased);
-                        loadImage(
-                             `${IMG_ROOT}/v2/albums/${album.id}/images/300x300.jpg`,
-                            '/img/default/album.jpg')
-                        .then(src => album.image = src);
+                    $scope.albums = data.albums.map( album => {
+                        album.date = new Date(Date.parse(album.originallyReleased));
+                        loadAlbumImage(album);
                         album.callback = () => $location.path(`/albums/${album.id}`);
-                        $scope.albums.push(album);
-                    }
+                        return album;
+                    }).sort( dateComparator );
                     if ($scope.albums.length) {
                         $scope.activeSlide = $scope.albums[0].id;
                     }
