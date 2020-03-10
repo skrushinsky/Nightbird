@@ -13,7 +13,7 @@
 		</div>
 	</div>
     <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-6 media">
+        <div class="col-sm-12 col-md-12 col-lg-6 media" style="margin-bottom: 24px;">
             <div class="media-left media-top">
                 <nb-picture src="artist.image" />
             </div>
@@ -21,7 +21,7 @@
                 <nb-blurbs ng-if="artist.blurbs.length > 0" blurbs="artist.blurbs" height="200"/>
             </div>
         </div>
-        <div class="bio col-sm-12 col-md-12 col-lg-6" ng-repeat="bio in artist.bios">
+        <div class="container bio col-sm-12 col-md-12 col-lg-6" ng-repeat="bio in artist.bios">
             <p ng-bind-html="bio.bio"></p>
             -- {{ bio.author }}<span ng-show="bio.publishDate">, {{ bio.publishDate }}</span>
             <hr/>
