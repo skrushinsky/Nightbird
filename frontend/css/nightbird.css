@@ -68,5 +68,12 @@ td {
 .bio {
 	padding-left: 15px;
 	padding-right: 15px;
-	font-size: 14px;
+	font-size: 105%;
+}
+
+.links .label {
+    font-size: 110% !important;
+    font-family: "Roboto-Bold" !important;
+    margin-right: 0.5em;
+    cursor: pointer !important;
 }

@@ -18,11 +18,13 @@ angular.module('app').directive('nbTracks', function() {
                     <span ng-if="track.name.length > 30">...</span>
                 </td>
                 <td ng-if="showartist">
-                    {{ track.artistName }}
+                    <a href="/artists/{{ track.artistId }}">{{ track.artistName }}</a>
                 </td>
                 <td ng-if="showalbum">
+                    <a href="/albums/{{ track.albumId }}">
                     {{ track.albumName | limitTo : 30 }}
                     <span ng-if="track.albumName.length > 30">...</span>
+                    </a>
                 </td>
                 <td>{{ track.playbackSeconds | formatSeconds }}</td>
                 <td>

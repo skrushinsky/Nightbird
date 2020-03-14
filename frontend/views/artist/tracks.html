@@ -1,0 +1,17 @@
+<div ng-controller="ArtistTracksController">
+	<div class="row" style="margin-bottom: 1.2em;">
+		<div class="col-sm-6">
+			<h2 style="margin: 0;">{{ artist.name }} : Top Tracks
+		</div>
+		<div class="col-sm-6">
+			<button type="button" class="btn btn-primary btn-sm pull-right" ng-click="gotoArtist(artist.id)">
+			  <span class="glyphicon glyphicon-chevron-left"></span> Back to {{ artist.name }}
+			</button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<nb-tracks tracks="tracks" showdisc="false" showalbum="true" showartist="false" />
+		</div>
+	</div>
+</div>

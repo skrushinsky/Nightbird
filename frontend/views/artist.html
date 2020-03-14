@@ -13,7 +13,7 @@
 		</div>
 	</div>
     <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-6 media" style="margin-bottom: 24px;">
+        <div class="col-sm-12 col-md-12 col-lg-10 media" style="margin-bottom: 24px;">
             <div class="media-left media-top">
                 <nb-picture src="artist.image" />
             </div>
@@ -21,58 +21,38 @@
                 <nb-blurbs ng-if="artist.blurbs.length > 0" blurbs="artist.blurbs" height="200"/>
             </div>
         </div>
-        <div class="container bio col-sm-12 col-md-12 col-lg-6" ng-repeat="bio in artist.bios">
+    </div>
+    <div class="row">
+        <div class="container bio col-sm-12 col-md-12 col-lg-10" ng-repeat="bio in artist.bios">
             <p ng-bind-html="bio.bio"></p>
             -- {{ bio.author }}<span ng-show="bio.publishDate">, {{ bio.publishDate }}</span>
             <hr/>
         </div>
     </div>
 
-</div>
-
-<!--
-<h2>{{ artist.name }}</h2>
-
-<ul class="nav nav-pills">
-  <li role="presentation"><a href="/artists/{{ artist.id }}/albums">Albums</a></li>
-  <li role="presentation"><a href="/artists/{{ artist.id }}/tracks">Top Tracks</a></li>
-</ul>
-
-<div class="media">
-  <div class="media-left media-top">
-      <nb-picture src="artist.image" />
-  </div>
-  <div class="media-body">
-      <nb-blurbs ng-if="artist.blurbs.length > 0" blurbs="artist.blurbs" height="200"/>
-  </div>
-</div>
-
-<uib-tabset active="active">
-    <uib-tab index="0" heading="Facts">
-
-	</uib-tab>
-	<uib-tab index="1" heading="Bio">
-        <div class="media">
-            <div class="media-left media-top">
-                <nb-picture src="artist.image" />
-            </div>
-          <div class="media-body">
-              <div ng-repeat="bio in artist.bios">
-                  <p ng-bind-html="bio.bio"></p>
-                  -- {{ bio.author }}<span ng-show="bio.publishDate">, {{ bio.publishDate }}</span>
-                  <hr/>
-              </div>
-          </div>
+    <h3>Links</h3>
+    <div ng-if="genres" class="links row" style="margin-bottom: 24px;">
+        <div class="col-sm-12 col-md-12 col-lg-10">
+            <h4>Genres</h4>
         </div>
-	</uib-tab>
-	<uib-tab index="2" heading="Albums">
-         <nb-slideshow data-slides="albums" data-active="activeSlide"/>
-	</uib-tab>
-	<uib-tab index="3" heading="Tracks">
-        <nb-tracks tracks="tracks" showdisc="false" showalbum="true"/>
-	</uib-tab>
-
-	<uib-tab index="4" headingt="Stations">
-
-	</uib-tab>
-</uib-tabset> -->
+        <div class="col-sm-12 col-md-12 col-lg-10">
+            <nb-links links="genres"/>
+        </div>
+    </div>
+    <div ng-if="followers" class="links row" style="margin-bottom: 24px;">
+        <div class="col-sm-12 col-md-12 col-lg-10">
+            <h4>Followers</h4>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-10">
+            <nb-links links="followers"/>
+        </div>
+    </div>
+    <div ng-if="influences" class="links row" style="margin-bottom: 24px;">
+        <div class="col-sm-12 col-md-12 col-lg-10">
+            <h4>Influences</h4>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-10">
+            <nb-links links="influences"/>
+        </div>
+    </div>
+</div>

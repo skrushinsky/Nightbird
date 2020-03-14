@@ -33,6 +33,10 @@ angular.module('app').config(function($routeProvider, $locationProvider) {
 			controller: 'ArtistAlbumsController',
 			templateUrl: '/views/artist/albums.html'
 		})
+        .when('/artists/:artistId/tracks', {
+			controller: 'ArtistTracksController',
+			templateUrl: '/views/artist/tracks.html'
+		})
 		.when('/albums/:albumId', {
 			controller: 'AlbumController',
 			templateUrl: '/views/album.html'
