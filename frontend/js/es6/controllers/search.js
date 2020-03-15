@@ -11,7 +11,6 @@ angular.module('app').controller('SearchController', ($scope, $log, $route, $loc
                     $log.debug('Search result: %s', JSON.stringify(res));
                     $location.path(`/search/results`);
                 }, notice => {
-                    // TODO: show alert
                     $log.error(notice);
                 }
             );

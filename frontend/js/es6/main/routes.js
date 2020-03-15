@@ -13,10 +13,6 @@ angular.module('app').config(function($routeProvider, $locationProvider) {
 			controller: 'GenreController',
 			templateUrl: '/views/genre.html'
 		})
-		.when('/genres/:genreId/children', {
-			controller: 'SubGenresController',
-			templateUrl: '/views/genre/subgenres.html'
-		})
 		.when('/genres/:genreId/tracks', {
 			controller: 'GenreTracksController',
 			templateUrl: '/views/genre/tracks.html'

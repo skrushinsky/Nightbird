@@ -17,10 +17,7 @@ angular.module('app').controller('ArtistController', ($scope, $log, $routeParams
                 );
                 fetchLinks(artist, 'influences', 'artists')
                 .then(
-                    links => {
-                        $log.debug('influences: %s', JSON.stringify(links));
-                        $scope.influences = links
-                    },
+                    links => $scope.influences = links,
                     notice => $scope.notice = notice
                 );
                 fetchLinks(artist, 'followers', 'artists')
