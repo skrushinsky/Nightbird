@@ -25,7 +25,16 @@ angular.module('app').controller('ArtistController', ($scope, $log, $routeParams
                     links => $scope.followers = links,
                     notice => $scope.notice = notice
                 );
-
+                fetchLinks(artist, 'contemporaries', 'artists')
+                .then(
+                    links => $scope.contemporaries = links,
+                    notice => $scope.notice = notice
+                );
+                fetchLinks(artist, 'relatedProjects', 'artists')
+                .then(
+                    links => $scope.related = links,
+                    notice => $scope.notice = notice
+                );
             }, notice => $scope.notice = notice
         );
     };

@@ -26,18 +26,17 @@ angular.module('app').controller('AlbumController', ($scope, $log, $routeParams,
                     '/img/default/album.jpg')
                 .then(src => album.image = src);
                 fetchAlbumTracks(album);
-                fetchLinks(album, 'genres', 'genres')
-                .then(
-                    links => $scope.genres = links.map( lnk => {
-                        lnk.href = `/genres/${lnk.id}`;
-                        return lnk;
-                    }),
-                    notice => {
-                        $log.warn('Got notice: %s', notice);
-                        $scope.notice = notice;
-                    }
+                fetchLinks(album, 'genres', 'genres').then(
+                    links => $scope.genres = links,
+                    notice =>$scope.notice = notice
                 );
-
+                const artistId = 'contributingArtists' in album
+                              && 'primaryArtist' in album.contributingArtists ? album.contributingArtists.primaryArtist
+                                                                                                                : null;
+                fetchLinks(album, 'artists', 'artists').then(
+                    links => $scope.artists = links.filter( lnk => lnk.id !== artistId ),
+                    notice => $scope.notice = notice
+                );
                 $scope.album = album;
             }, notice => {
                 $log.warn('Got notice: %s', notice);

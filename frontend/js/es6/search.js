@@ -4,7 +4,7 @@ angular.module('app')
 		album: 'albums',
 		track: 'tracks'
 	})
-	.service('searchService', ($q, $filter, $log, fetchPath, loadImage, IMG_ROOT, SEARCH_KEYS) => {
+	.service('searchService', ($q, $filter, $log, fetchPath, SEARCH_KEYS) => {
 		const results = [];
 
 		const buildRow = row => {
@@ -16,26 +16,16 @@ angular.module('app')
 					if (row.bios) {
 						it.description = row.bios[0].bio;
 					}
-					loadImage(
-							`${IMG_ROOT}/v2/artists/${row.id}/images/356x237.jpg`,
-							'/img/default/artist.jpg')
-						.then(src => it.image = src);
 					it.path = `/artists/${row.id}`;
 					break;
 				case 'album':
 					const released = $filter('date')(row.originallyReleased, 'longDate');
-					it.description = `<a href="/artists/${row.artistId}">${row.artistName}</a>, ${released}`;
-					loadImage(
-							`${IMG_ROOT}/v2/albums/${row.id}/images/300x300.jpg`,
-							'/img/default/album.jpg')
-						.then(src => it.image = src);
+					it.description = `<a href="/artists/${row.contributingArtists.primaryArtist}">${row.artistName}</a>, ${released}`;
 					it.path = `/albums/${row.id}`;
 					break;
 				case 'track':
 					it.description = `By <a href="/artists/${row.artistId}">${row.artistName}</a>, album: <a href="/albums/${row.albumId}">${row.albumName}</a>`;
 					it.preview = row.previewURL;
-					it.image = '/img/default/track.jpg'
-					break;
 			}
 			results.push(it);
 		};
