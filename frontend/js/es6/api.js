@@ -5,6 +5,7 @@ angular.module('app')
         'Content-Type': 'application/json;charset=utf-8',
         apikey: 'Y2JmZGI2ZmMtM2RiZC00ZjUwLWEzMzItMGFiYjcyNDJmMjg2'
     })
+    .constant('COLOR_CLASSES', ['info', 'default', 'primary', 'warning', 'danger'])
     .factory('fetchUrl', ($q, $http, $log, API_ROOT, HEADERS) =>
         url => {
             $log.debug('Fetching %s...', url);
@@ -41,14 +42,38 @@ angular.module('app')
                 } else {
                     return data.artists[0];
                 }
-            }, err => $q.reject(err))
-        }
-    ).factory('fetchTracks', ($q, fetchPath) =>
-        path => {
-            return fetchPath(path).then(data => {
-                return data.tracks.filter(t => 'id' in t);
             }, err => $q.reject(err));
         }
+    ).factory('fetchTracks', ($q, fetchPath, uniqId) =>
+        path => {
+            return fetchPath(path).then(data => {
+                return data.tracks.filter( uniqId(data.tracks) );
+            }, err => $q.reject(err));
+        }
+    ).factory('fetchLinks', ($q, $location, fetchUrl, shuffleArray, uniqId, COLOR_CLASSES) =>
+        (obj, key, section) => {
+            const linkColors = COLOR_CLASSES.map( c => `label-${c}` );
+            if (!(key in obj.links)) {
+                return $q.reject(`Key ${key} not found in the object links`);
+            }
+            return fetchUrl(obj.links[key].href)
+            .then(
+                data => {
+                    const colors = shuffleArray(linkColors);
+                    const arr = data[section];
+                    return arr.filter(uniqId(arr)).map( (item, i) => {
+                        return {
+                            id: item.id,
+                            name: item.name,
+                            callback: () => $location.path(`/${section}/${item.id}`),
+                            colorClass: colors[ i % colors.length ]
+                        }
+                    });
+                },
+                err => $q.reject(err)
+            )
+        }
+
     ).service('searchService', ($q, $filter, fetchPath, loadImage, IMG_ROOT) => {
         const keys = {
             artist: 'artists',

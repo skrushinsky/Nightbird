@@ -72,8 +72,10 @@ td {
 }
 
 .links .label {
-    font-size: 110% !important;
-    font-family: "Roboto-Bold" !important;
+    font-size: 110%;
+    font-family: "Roboto-Bold";
     margin-right: 0.5em;
-    cursor: pointer !important;
+    cursor: pointer;
+    line-height: 2.2;
+    white-space: normal;
 }

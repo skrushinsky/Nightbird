@@ -1,19 +1,14 @@
 angular.module('app').directive('nbLinks', function() {
     return {
         template : `
-        <span ng-repeat="link in links track by link.id | orderBy:'name'"
-              class="label"
-              ng-class="link.colorClass"
-              ng-click="link.callback()">{{ link.name }}
-        </span>
+        <a ng-repeat="link in links track by link.id"
+           ng-href="{{ link.href }}">
+           <span style="white-space: nowrap">{{ link.name }} <span ng-if="!$last">,&nbsp;</span></span>
+        </a>
         `,
         restrict: 'E',
         scope: {
             links: '=',
         }
-        // ,
-        // controller: ($scope, $log) => {
-        //     $log.debug('Got links: %s', JSON.stringify($scope.links));
-        // }
     }
 });

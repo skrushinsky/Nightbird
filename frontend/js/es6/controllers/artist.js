@@ -1,34 +1,4 @@
-angular.module('app').controller('ArtistController', ($scope, $log, $routeParams, $location, getArtist, fetchUrl, loadImage, shuffleArray, IMG_ROOT) => {
-
-    const linkColors = ['label-info', 'label-default', 'label-primary', 'label-warning', 'label-danger'];
-
-
-    const fetchLinks = (artist, key, section) => {
-        if (key in artist.links) {
-            fetchUrl(artist.links[key].href)
-            .then(
-                data => {
-                    const colors = shuffleArray(linkColors);
-                    //$log.debug('Shuffled colors: %s', JSON.stringify(colors));
-                    const l = colors.length;
-                    $scope[key] = data[section].map( (item, i) => {
-                        return {
-                            id: item.id,
-                            name: item.name,
-                            callback: () => $location.path(`/${section}/${item.id}`),
-                            colorClass: colors[ i % l ]
-                        }
-                    });
-                    //$log.debug('$scope.%s = %s', key, JSON.stringify($scope[key]));
-                }, notice => {
-                    $log.warn('Got notice: %s', notice);
-                    $scope.notice = notice;
-                }
-            );
-        }
-    };
-
-
+angular.module('app').controller('ArtistController', ($scope, $log, $routeParams, getArtist, fetchLinks, loadImage, IMG_ROOT) => {
 
     const refreshData = () => {
         getArtist($routeParams.artistId)
@@ -40,14 +10,26 @@ angular.module('app').controller('ArtistController', ($scope, $log, $routeParams
                     '/img/default/artist.jpg')
                 .then(src => $scope.artist.image = src);
 
-                fetchLinks(artist, 'genres', 'genres');
-                fetchLinks(artist, 'influences', 'artists');
-                fetchLinks(artist, 'followers', 'artists');
+                fetchLinks(artist, 'genres', 'genres')
+                .then(
+                    links => $scope.genres = links,
+                    notice => $scope.notice = notice
+                );
+                fetchLinks(artist, 'influences', 'artists')
+                .then(
+                    links => {
+                        $log.debug('influences: %s', JSON.stringify(links));
+                        $scope.influences = links
+                    },
+                    notice => $scope.notice = notice
+                );
+                fetchLinks(artist, 'followers', 'artists')
+                .then(
+                    links => $scope.followers = links,
+                    notice => $scope.notice = notice
+                );
 
-            }, notice => {
-                $log.warn('Got notice: %s', notice);
-                $scope.notice = notice;
-            }
+            }, notice => $scope.notice = notice
         );
     };
 

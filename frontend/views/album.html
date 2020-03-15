@@ -1,7 +1,7 @@
 <h2>{{ album.name }}</h2>
 
 <uib-tabset active="active">
-    <uib-tab index="0" heading="Facts">
+    <uib-tab index="0" heading="Summary">
         <div class="media">
             <div class="media-left media-top">
                 <nb-picture src="album.image" />
@@ -9,31 +9,47 @@
             <div class="media-body">
                 <table class="table table-striped">
                     <tr ng-show="album.artistName">
-                        <td>Artist</td>
+                        <td>Artist:</td>
                         <td>
-                            <a ng-show="artist.contributingArtists.primaryArtist" href="`/artists/{{artist.contributingArtists.primaryArtist}}">
+                            <a ng-if="album.contributingArtists.primaryArtist" href="/artists/{{album.contributingArtists.primaryArtist}}">
                                 {{ album.artistName }}
                             </a>
-                            <span ng-hide="artist.contributingArtists.primaryArtist">
+                            <span ng-if="!album.contributingArtists.primaryArtist">
                                 {{ album.artistName }}
                             </span>
                         </td>
                     </tr>
                     <tr ng-show="album.released">
-                        <td>Released</td>
+                        <td>Released:</td>
                         <td>{{ album.released | date : "longDate" }}</td>
                     </tr>
                     <tr ng-show="album.originallyReleased">
-                        <td>Originally Released</td>
+                        <td>Originally Released:</td>
                         <td>{{ album.originallyReleased | date : "longDate" }}</td>
                     </tr>
                     <tr ng-show="album.label">
-                        <td>Label</td>
+                        <td>Label:</td>
                         <td>{{ album.label }}</td>
                     </tr>
-                    <tr ng-show="album.copyright">
-                        <td>Copyright</td>
+                    <tr ng-show="album.copyright && album.label != album.copyright">
+                        <td>Copyright:</td>
                         <td>{{ album.copyright }}</td>
+                    </tr>
+                    <tr ng-show="album.discCount">
+                        <td>Discs: </td>
+                        <td>{{ album.discCount }}</td>
+                    </tr>
+                    <tr ng-show="genres.length > 0">
+                        <td>Genres: </td>
+                        <td>
+                            <nb-links links="genres"/>
+                        </td>
+                    </tr>
+                    <tr ng-show="artists.length > 0">
+                        <td>Artists: </td>
+                        <td>
+                            <nb-links links="artists"/>
+                        </td>
                     </tr>
                 </table>
             </div>
