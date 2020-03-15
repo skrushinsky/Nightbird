@@ -5,7 +5,7 @@ body {
 }
 
 .nav, .pagination, .carousel, .panel-title a {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 h1, h2, h3, h4 {
@@ -17,7 +17,7 @@ h4 {
 }
 
 nav {
-    padding-left: 10px;
+	padding-left: 10px;
 }
 
 td {
@@ -26,39 +26,38 @@ td {
 }
 
 .navbar-brand {
-    font-family: "Roboto-Black" !important;
+	font-family: "Roboto-Black" !important;
 	font-weight: bold;
 	font-size: 30px !important;
 	letter-spacing: 0.2em;
 	font-stretch: expanded;
 	font-variant: small-caps;
-
-    background-image: url("../img/owl-yellow.png");
-    background-repeat: no-repeat;
-    background-position: left center;
-    background-size: 36px;
-    padding-left: 42px;
+	background-image: url("../img/owl-yellow.png");
+	background-repeat: no-repeat;
+	background-position: left center;
+	background-size: 36px;
+	padding-left: 42px;
 }
 
 .horizontal-collapse {
-  height: 70px;
+	height: 70px;
 }
 
 .navbar-collapse.in {
-  overflow-y: hidden;
+	overflow-y: hidden;
 }
 
 .tab-content {
-    padding: 12px;
+	padding: 12px;
 }
 
 .carousel-caption h4 {
-    font-size: 32px;
-    color: yellow;
+	font-size: 32px;
+	color: yellow;
 }
 
 .shadow {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .yellow-bg {
@@ -72,10 +71,10 @@ td {
 }
 
 .links .label {
-    font-size: 110%;
-    font-family: "Roboto-Bold";
-    margin-right: 0.5em;
-    cursor: pointer;
-    line-height: 2.2;
-    white-space: normal;
+	font-size: 110%;
+	font-family: "Roboto-Bold";
+	margin-right: 0.5em;
+	cursor: pointer;
+	line-height: 2.2;
+	white-space: normal;
 }

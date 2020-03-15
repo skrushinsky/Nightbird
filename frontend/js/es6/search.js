@@ -1,5 +1,5 @@
 angular.module('app')
-	.constant(SEARCH_KEYS, {
+	.constant('SEARCH_KEYS', {
 		artist: 'artists',
 		album: 'albums',
 		track: 'tracks'

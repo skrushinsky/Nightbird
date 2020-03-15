@@ -1,0 +1,25 @@
+.wait .glyphicon {
+	display: table-cell;
+	font-size: 36px;
+}
+
+.wait h4 {
+	display: table-cell;
+	line-height: 36px;
+	vertical-align: middle;
+	margin: 0;
+	padding: 0;
+	font-family: "Roboto";
+	transition: all linear 0.5s;
+}
+
+.wait div,
+.wait span {
+	padding-left: 15px;
+	display: table-cell;
+    transition: all linear 0.5s;
+}
+
+.wait .ng-hide {
+	opacity: 0;
+}
