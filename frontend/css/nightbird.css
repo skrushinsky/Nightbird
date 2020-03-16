@@ -60,6 +60,10 @@ td {
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+div.list-content {
+	width: 80%;
+}
+
 .yellow-bg {
 	background-color: #ffd966;
 }
@@ -77,4 +81,15 @@ td {
 	cursor: pointer;
 	line-height: 2.2;
 	white-space: normal;
+}
+
+.list-content h2 {
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 0.5em; 
+}
+
+.search-result {
+	margin-bottom: 1.4em;
+	border-bottom: 2px dotted gray;
 }

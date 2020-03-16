@@ -1,7 +1,7 @@
-<div class="container" ng-controller="ResultsController">
+<div class="list-content container" ng-controller="ResultsController">
     <div class="row" style="margin-bottom: 1.2em;">
         <div class="col-sm-12">
-            <h2 style="margin: 0;">Search results</h2>
+            <h2>Search Results</h2>
         </div>
     </div>
     <div class="row">
@@ -14,4 +14,23 @@
             <nb-results data-results="results" />
         </div>
     </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <ul uib-pagination
+                boundary-links="true"
+                total-items="totalItems"
+                items-per-page="itemsPerPage"
+                max-size="maxSize"
+                force-ellipses="true"
+                ng-model="currentPage"
+                ng-change="pageChanged()"
+                class="pagination-md"
+                previous-text="&lsaquo;"
+                next-text="&rsaquo;"
+                first-text="&laquo;"
+                last-text="&raquo;">
+            </ul>
+        </div>
+    </div>
+
 </div>

@@ -5,11 +5,10 @@ angular.module('app')
 		track: 'tracks'
 	})
 	.service('searchService', ($q, $filter, $log, fetchPath, SEARCH_KEYS) => {
-		const results = [];
-
+		let results = [];
+		let meta = {};
 		const buildRow = row => {
 			const it = {};
-			let imgUrl;
 			it.name = row.name;
 			switch (row.type) {
 				case 'artist':
@@ -30,28 +29,35 @@ angular.module('app')
 			results.push(it);
 		};
 
-		const searchType = (query, type) => {
+		const searchType = (query, type, offset=0, page=1) => {
 			const t = type.toLowerCase();
 			if (!(t in SEARCH_KEYS)) {
 				return $q.reject(`Unknown type: "${type}"`);
 			}
-			results.splice(0, results.length); // clear previous results
-			return fetchPath(`search?type=${t}&query=${query}`)
+			results = [], meta = {}; // clear previous results
+			return fetchPath(`search?type=${t}&query=${query}&offset=${offset}`)
 				.then(
 					res => {
                         const rows = res.search.data[SEARCH_KEYS[t]];
 						for (let row of rows) {
 							buildRow(row);
 						}
-						return res.meta;
+						meta = res.meta;
+						meta.offset = offset;
+						meta.page = page;
+						meta.query = query;
+						meta.type = type;
+						return meta;
 					}, err => $q.reject(err)
 				);
 		};
 
 		const getResults = () => results;
+		const getMeta = () => meta;
 
 		return {
 			searchType,
-			getResults
+			getResults,
+			getMeta
 		}
 	});
