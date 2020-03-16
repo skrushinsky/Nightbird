@@ -1,6 +1,6 @@
 /* Controllers */
 
-angular.module('app').controller('ArtistAlbumsController', ($scope, $log, $route, $routeParams, $location, fetchPath, getArtist, loadImage, dateComparator, IMG_ROOT) => {
+angular.module('app').controller('ArtistAlbumsController', ($scope, $log, $route, $routeParams, $location, fetchAlbums, getArtist, loadImage, dateComparator, IMG_ROOT) => {
 	$scope.albums = [];
 
 	const loadAlbumImage = album => loadImage(
@@ -14,9 +14,9 @@ angular.module('app').controller('ArtistAlbumsController', ($scope, $log, $route
 			artist => {
 				$scope.artist = artist;
 				$scope.gotoArtist = id => $location.path(`/artists/${id}`);
-				fetchPath(`/artists/${artist.id}/albums/top`)
-					.then(data => {
-						$scope.albums = data.albums.map(album => {
+				fetchAlbums(`/artists/${artist.id}/albums/top`)
+					.then(albums => {
+						$scope.albums = albums.map(album => {
 							album.date = new Date(Date.parse(album.originallyReleased));
 							loadAlbumImage(album);
 							album.callback = () => $location.path(`/albums/${album.id}`);

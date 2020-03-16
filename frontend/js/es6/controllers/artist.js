@@ -34,11 +34,6 @@ angular.module('app').controller('ArtistController', ($scope, $log, $routeParams
                 links => $scope.related = links,
                 notice => $scope.notice = notice
             );
-            fetchLinks(artist, 'stations', 'stations')
-            .then(
-                links => $scope.stations = links,
-                notice => $scope.notice = notice
-            );
         }, notice => $scope.notice = notice
     );
 

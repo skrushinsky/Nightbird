@@ -16,10 +16,8 @@ angular.module('app')
 			}
 			return a;
 		}
-	).factory('uniqId', () => {
-        return arr => (t, i) => 'id' in t && arr.findIndex(u => t.id === u.id) === i;
-
-    }).factory('nameComparator', () => {
+	).factory('uniqId', () => arr => (t, i) => 'id' in t && arr.findIndex(u => t.id === u.id) === i
+    ).factory('nameComparator', () => {
 		return (a, b) => {
 			if (a.name < b.name) {
 				return -1;

@@ -34,15 +34,16 @@ angular.module('app')
                 }
             }, err => $q.reject(err))
         }
-    ).factory('getGenre', ($q, getObject)   => id => getObject('genres', id)
-    ).factory('getArtist', ($q, getObject)  => id => getObject('artists', id)
-    ).factory('getStation', ($q, getObject) => id => getObject('stations', id)
-    ).factory('fetchTracks', ($q, fetchPath, uniqId) =>
-        path => {
-            return fetchPath(path).then(data => {
-                return data.tracks.filter( uniqId(data.tracks) );
-            }, err => $q.reject(err));
+    ).factory('getGenre', getObject  => id => getObject('genres', id)
+    ).factory('getArtist', getObject => id => getObject('artists', id)
+    ).factory('fetchObjects', ($q, fetchPath, uniqId) =>
+        (path, section) => {
+            return fetchPath(path).then(
+                data => data[section].filter( uniqId(data[section]) ),
+                err => $q.reject(err));
         }
+    ).factory('fetchAlbums', fetchObjects => path => fetchObjects(path, 'albums')
+    ).factory('fetchTracks', fetchObjects => path => fetchObjects(path, 'tracks')
     ).factory('fetchLinks', ($q, $location, fetchUrl, shuffleArray, uniqId, COLOR_CLASSES) =>
         (obj, key, section) => {
             const linkColors = COLOR_CLASSES.map( c => `label-${c}` );
@@ -71,5 +72,4 @@ angular.module('app')
                 err => $q.reject(err)
             )
         }
-
     );
