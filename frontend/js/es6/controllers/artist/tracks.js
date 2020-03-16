@@ -1,26 +1,18 @@
 /* Controllers */
 
-angular.module('app').controller('ArtistTracksController', ($scope, $log, $route, $routeParams, $location, fetchPath, fetchUrl, getArtist, fetchTracks) => {
-    $scope.tracks = [];
+angular.module('app').controller('ArtistTracksController', ($scope, $log, $route, $routeParams, $location, getArtist, fetchTracks) => {
 
-    const refreshData = () => {
-        getArtist($routeParams.artistId)
-            .then(artist => {
-                $scope.artist = artist;
-                fetchTracks(`/artists/${artist.id}/tracks/top`)
-                    .then(
-                        tracks => {
-                            $scope.tracks = tracks;
-                            $scope.gotoArtist = id => $location.path(`/artists/${id}`);
-                        }, notice => {
-                            $log.warn('Got notice: %s', notice);
-                            $scope.notice = notice;
-                        }
-                    );
-            }, notice => {
-                $log.warn('Got notice: %s', notice);
-                $scope.notice = notice;
-            });
-    };
-    refreshData();
+    getArtist($routeParams.artistId).then(
+        artist => {
+            $scope.artist = artist;
+            fetchTracks(`/artists/${artist.id}/tracks/top`).then(
+                tracks => {
+                    $scope.tracks = tracks;
+                    $scope.gotoArtist = id => $location.path(`/artists/${id}`);
+                },
+                notice => $scope.notice = notice
+            );
+        },
+        notice => $scope.notice = notice
+    );
 });
