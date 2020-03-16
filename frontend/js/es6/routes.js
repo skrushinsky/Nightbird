@@ -45,6 +45,10 @@ angular.module('app').config(function($routeProvider, $locationProvider) {
 			controller: 'ResultsController',
 			templateUrl: '/views/search/results.html'
 		})
+		.when('/stations/:stationId', {
+			controller: 'StationController',
+			templateUrl: '/views/station.html'
+		})
 		.otherwise({
 			redirectTo: '/genres'
 		});

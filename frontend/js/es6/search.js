@@ -25,12 +25,13 @@ angular.module('app')
 				case 'track':
 					it.description = `By <a href="/artists/${row.artistId}">${row.artistName}</a>, album: <a href="/albums/${row.albumId}">${row.albumName}</a>`;
 					it.preview = row.previewURL;
+					break;
 			}
 			results.push(it);
 		};
 
 		const searchType = (query, type, offset=0, page=1) => {
-			const t = type.toLowerCase();
+			let t = type.toLowerCase();
 			if (!(t in SEARCH_KEYS)) {
 				return $q.reject(`Unknown type: "${type}"`);
 			}

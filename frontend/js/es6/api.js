@@ -24,26 +24,19 @@ angular.module('app')
     .factory('fetchPath', (fetchUrl, API_ROOT, HEADERS) =>
         path => fetchUrl(`${API_ROOT}/${path}`)
     )
-    .factory('getGenre', ($q, fetchPath) =>
-        id => {
-            return fetchPath(`genres/${id}`).then(data => {
-                if (data.genres.length === 0) {
-                    return $q.reject(`Genre ${id} not found`);
+    .factory('getObject', ($q, fetchPath) =>
+        (section, id) => {
+            return fetchPath(`${section}/${id}`).then(data => {
+                if (data[section].length === 0) {
+                    return $q.reject(`Object ${id} not found in ${section}`);
                 } else {
-                    return data.genres[0];
+                    return data[section][0];
                 }
             }, err => $q.reject(err))
         }
-    ).factory('getArtist', ($q, fetchPath) =>
-        id => {
-            return fetchPath(`artists/${id}`).then(data => {
-                if (data.artists.length === 0) {
-                    return $q.reject(`Artist ${id} not found`);
-                } else {
-                    return data.artists[0];
-                }
-            }, err => $q.reject(err));
-        }
+    ).factory('getGenre', ($q, getObject)   => id => getObject('genres', id)
+    ).factory('getArtist', ($q, getObject)  => id => getObject('artists', id)
+    ).factory('getStation', ($q, getObject) => id => getObject('stations', id)
     ).factory('fetchTracks', ($q, fetchPath, uniqId) =>
         path => {
             return fetchPath(path).then(data => {
@@ -53,7 +46,11 @@ angular.module('app')
     ).factory('fetchLinks', ($q, $location, fetchUrl, shuffleArray, uniqId, COLOR_CLASSES) =>
         (obj, key, section) => {
             const linkColors = COLOR_CLASSES.map( c => `label-${c}` );
-            if (!(key in obj.links)) {
+            if ( !('links' in obj)) {
+                return $q.reject('Object has no links');
+            }
+
+            if ( !(key in obj.links)) {
                 return $q.reject(`Key ${key} not found in the object links`);
             }
             return fetchUrl(obj.links[key].href)
