@@ -31,17 +31,18 @@ table.details td {
 }
 
 .navbar-brand {
+	height: 58px;
 	font-family: "Roboto-Black" !important;
 	font-weight: bold;
 	font-size: 30px !important;
 	letter-spacing: 0.2em;
 	font-stretch: expanded;
 	font-variant: small-caps;
-	background-image: url("../img/owl-yellow.png");
+	background-image: url("../img/icons/icon-128x128.png");
 	background-repeat: no-repeat;
 	background-position: left center;
-	background-size: 36px;
-	padding-left: 42px;
+	background-size: 96px;
+	padding-left: 96px;
 }
 
 .horizontal-collapse {
