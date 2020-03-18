@@ -29,7 +29,6 @@ const
         '/js/controllers/results.js',
         '/js/controllers/search.js',
         '/js/controllers/wait.js',
-        '/js/controllers/album.js',
         '/js/controllers/artist/albums.js',
         '/js/controllers/artist/tracks.js',
         '/js/controllers/genre/index.js',

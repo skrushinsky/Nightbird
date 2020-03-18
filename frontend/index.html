@@ -5,56 +5,55 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Musical guide">
 	<meta name="author" content="Sergey Krushinsky">
-    <!-- <base href="/"> -->
+	<!-- <base href="/"> -->
 	<title>Nightbird</title>
 	<link rel="manifest" href="/manifest.json">
 
-    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/fonts/roboto-fontface/css/roboto/roboto-fontface.css" />
+	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/fonts/roboto-fontface/css/roboto/roboto-fontface.css" />
 	<link rel="stylesheet" href="/css/nightbird.css" />
 	<link rel="stylesheet" href="/css/blurbs.css" />
-    <link rel="stylesheet" href="/css/wait.css" />
-
+	<link rel="stylesheet" href="/css/wait.css" />
+	<script>
+		if ('serviceWorker' in navigator) {
+			console.log('Registering service worker');
+			navigator.serviceWorker.register('/service-worker.js');
+		}
+	</script>
 	<script src="/js/lib/angular.js"></script>
 	<script src="/js/lib/angular-route.js"></script>
 	<script src="/js/lib/angular-animate.js"></script>
 	<script src="/js/lib/angular-sanitize.js"></script>
-    <script src="/js/lib/ui-bootstrap.js"></script>
-    <script src="/js/lib/ui-bootstrap-tpls.js"></script>
-
-	<script>
-		if ('serviceWorker' in navigator) {
-		  navigator.serviceWorker.register('/js/service-worker.js');
-		}
-	</script>
+	<script src="/js/lib/ui-bootstrap.js"></script>
+	<script src="/js/lib/ui-bootstrap-tpls.js"></script>
 
 	<script src="/js/app.js"></script>
 	<script src="/js/utils.js"></script>
 	<script src="/js/routes.js"></script>
-    <script src="/js/api.js"></script>
-    <script src="/js/search.js"></script>
+	<script src="/js/api.js"></script>
+	<script src="/js/search.js"></script>
 	<script src="/js/directives/slideshow.js"></script>
 	<script src="/js/directives/tracks.js"></script>
 	<script src="/js/directives/picture.js"></script>
 	<script src="/js/directives/genres.js"></script>
 	<script src="/js/directives/results.js"></script>
 	<script src="/js/directives/blurbs.js"></script>
-    <script src="/js/directives/links.js"></script>
-    <script src="/js/directives/labels.js"></script>
-    <script src="/js/directives/wait.js"></script>
+	<script src="/js/directives/links.js"></script>
+	<script src="/js/directives/labels.js"></script>
+	<script src="/js/directives/wait.js"></script>
 	<script src="/js/directives/album_details.js"></script>
-    <script src="/js/controllers/navbar.js"></script>
+	<script src="/js/controllers/navbar.js"></script>
 	<script src="/js/controllers/search.js"></script>
-    <script src="/js/controllers/wait.js"></script>
+	<script src="/js/controllers/wait.js"></script>
 	<script src="/js/controllers/results.js"></script>
-    <script src="/js/controllers/genre/index.js"></script>
+	<script src="/js/controllers/genre/index.js"></script>
 	<script src="/js/controllers/genre/artists.js"></script>
 	<script src="/js/controllers/genre/tracks.js"></script>
 	<script src="/js/controllers/genre.js"></script>
-    <script src="/js/controllers/artist.js"></script>
+	<script src="/js/controllers/artist.js"></script>
 	<script src="/js/controllers/artist/albums.js"></script>
-    <script src="/js/controllers/artist/tracks.js"></script>
-    <script src="/js/controllers/album.js"></script>
+	<script src="/js/controllers/artist/tracks.js"></script>
+	<script src="/js/controllers/album.js"></script>
 </head>
 
 <body>
