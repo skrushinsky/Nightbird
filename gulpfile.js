@@ -21,6 +21,14 @@ gulp.task('html', () => {
     return gulp.src([`${src}/**/*.html`, `${src}/*.html`]).pipe(gulp.dest(`${dst}`));
 });
 
+gulp.task('manifest', () => {
+    return gulp.src([`${src}/manifest.json`]).pipe(gulp.dest(`${dst}`));
+});
+
+gulp.task('service-worker', () => {
+    return gulp.src([`${src}/service-worker.js`]).pipe(gulp.dest(`${dst}`));
+});
+
 gulp.task('styles', () => {
     return gulp.src(`${src}/css/**/*`).pipe(gulp.dest(`${dst}/css`));
 });
@@ -48,7 +56,11 @@ gulp.task('test', cb => {
     });
 });
 
-gulp.task('build', gulp.series('clean', gulp.parallel(['transpile', 'libs', 'html', 'styles', 'fonts', 'images'])), done => {
+gulp.task('build', gulp.series(
+    'clean',
+    gulp.parallel([
+        'transpile', 'libs', 'html', 'manifest', 'service-worker', 'styles', 'fonts', 'images'
+    ])), done => {
     done();
 });
 
