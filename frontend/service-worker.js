@@ -34,6 +34,7 @@ const
         '/js/controllers/genre/index.js',
         '/js/controllers/genre/artists.js',
         '/js/controllers/genre/tracks.js',
+        '/js/controllers/about.js',
         '/js/directives/album_details.js',
         '/js/directives/blurbs.js',
         '/js/directives/genres.js',
@@ -59,6 +60,7 @@ const
         '/views/genre/tracks.html',
         '/views/search/results.html',
         '/views/search/wait.html',
+        '/views/about.html',
     ].concat(offlineURL),
     installFilesDesirable = [
         '/favicon.ico',

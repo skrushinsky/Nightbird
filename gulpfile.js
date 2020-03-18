@@ -29,6 +29,10 @@ gulp.task('service-worker', () => {
     return gulp.src([`${src}/service-worker.js`]).pipe(gulp.dest(`${dst}`));
 });
 
+gulp.task('favicon', () => {
+    return gulp.src([`${src}/favicon.ico`]).pipe(gulp.dest(`${dst}`));
+});
+
 gulp.task('styles', () => {
     return gulp.src(`${src}/css/**/*`).pipe(gulp.dest(`${dst}/css`));
 });
@@ -59,7 +63,7 @@ gulp.task('test', cb => {
 gulp.task('build', gulp.series(
     'clean',
     gulp.parallel([
-        'transpile', 'libs', 'html', 'manifest', 'service-worker', 'styles', 'fonts', 'images'
+        'transpile', 'libs', 'html', 'manifest', 'service-worker', 'favicon', 'styles', 'fonts', 'images'
     ])), done => {
     done();
 });

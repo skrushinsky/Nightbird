@@ -45,6 +45,10 @@ angular.module('app').config(function($routeProvider, $locationProvider) {
 			controller: 'ResultsController',
 			templateUrl: '/views/search/results.html'
 		})
+		.when('/about', {
+			controller: 'AbouController',
+			templateUrl: '/views/about.html'
+		})
 		.otherwise({
 			redirectTo: '/genres'
 		});

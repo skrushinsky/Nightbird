@@ -8,7 +8,8 @@
 	<!-- <base href="/"> -->
 	<title>Nightbird</title>
 	<link rel="manifest" href="/manifest.json">
-
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="/fonts/roboto-fontface/css/roboto/roboto-fontface.css" />
 	<link rel="stylesheet" href="/css/nightbird.css" />
@@ -54,13 +55,14 @@
 	<script src="/js/controllers/artist/albums.js"></script>
 	<script src="/js/controllers/artist/tracks.js"></script>
 	<script src="/js/controllers/album.js"></script>
+	<script src="/js/controllers/about.js"></script>
 </head>
 
 <body>
-	<div id="wrapper" ng-app="app">
+	<div id="wrapper" ng-app="app" style="background-color: #f0f0f5;">
 		<div ng-include="'/views/navbar.html'"></div>
 		<div id="page-wrapper">
-			<div class="container" ng-view>
+			<div id="main" class="container" ng-view>
 			</div>
 		</div>
 	</div>
