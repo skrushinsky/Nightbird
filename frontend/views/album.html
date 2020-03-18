@@ -1,70 +1,58 @@
-<h2>{{ album.name }}</h2>
 
-<uib-tabset active="active">
-    <uib-tab index="0" heading="Summary">
-        <div class="media">
-            <div class="media-left media-top">
-                <nb-picture src="album.image" />
-            </div>
-            <div class="media-body">
-                <table class="table table-striped">
-                    <tr ng-show="album.artistName">
-                        <td>Artist:</td>
-                        <td>
-                            <a ng-if="album.contributingArtists.primaryArtist" href="/artists/{{album.contributingArtists.primaryArtist}}">
-                                {{ album.artistName }}
-                            </a>
-                            <span ng-if="!album.contributingArtists.primaryArtist">
-                                {{ album.artistName }}
-                            </span>
-                        </td>
-                    </tr>
-                    <tr ng-show="album.released">
-                        <td>Released:</td>
-                        <td>{{ album.released | date : "longDate" }}</td>
-                    </tr>
-                    <tr ng-show="album.originallyReleased">
-                        <td>Originally Released:</td>
-                        <td>{{ album.originallyReleased | date : "longDate" }}</td>
-                    </tr>
-                    <tr ng-show="album.label">
-                        <td>Label:</td>
-                        <td>{{ album.label }}</td>
-                    </tr>
-                    <tr ng-show="album.copyright && album.label != album.copyright">
-                        <td>Copyright:</td>
-                        <td>{{ album.copyright }}</td>
-                    </tr>
-                    <tr ng-show="album.discCount">
-                        <td>Discs: </td>
-                        <td>{{ album.discCount }}</td>
-                    </tr>
-                    <tr ng-show="genres.length > 0">
-                        <td>Genres: </td>
-                        <td>
-                            <nb-links links="genres"/>
-                        </td>
-                    </tr>
-                    <tr ng-show="artists.length > 0">
-                        <td>Artists: </td>
-                        <td>
-                            <nb-links links="artists"/>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </uib-tab>
-    <uib-tab index="1" heading="Tracks">
-        <div class="media">
-            <div class="media-left media-top">
-                <nb-picture src="album.image" />
-            </div>
-            <div class="media-body">
-                <div ng-repeat="disc in discs">
-                    <nb-tracks tracks="disc" showdisc="discs.length > 1" discnum="$index + 1"/>
+<div ng-controller="AlbumController">
+	<div class="row" style="margin-bottom: 1.2em;">
+		<div class="col-sm-12">
+			<h2 style="margin: 0;">{{ album.name }}</h2>
+		</div>
+	</div>
+	<div class="row">
+        <uib-tabset active="active">
+            <uib-tab index="0" heading="Summary">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-10 media" style="margin-bottom: 24px;">
+                        <div class="media-left media-top">
+                            <nb-picture src="album.image" width="300"/>
+                        </div>
+                        <div class="media-body hidden-xs hidden-sm">
+                            <nb-album-details album="album"/>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </uib-tab>
-</uib-tabset>
+                <div class="hidden-md hidden-lg">
+                    <nb-album-details album="album"/>
+                </div>
+
+                <div class="row">
+                    <div class="container bio col-sm-12 col-md-12 col-lg-10" ng-repeat="review in reviews">
+                        <p ng-bind-html="review.body"></p>
+                        -- {{ review.author }}
+                        <hr/>
+                    </div>
+                </div>
+
+                <h3>Links</h3>
+                <div ng-if="genres" class="links row" style="margin-bottom: 24px;">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <h4>Genres</h4>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <nb-labels data-links="genres"/>
+                    </div>
+                </div>
+            </uib-tab>
+
+            <uib-tab index="1" heading="Tracks">
+                <div class="media">
+                    <div class="media-left media-top">
+                        <nb-picture src="album.image" />
+                    </div>
+                    <div class="media-body">
+                        <div ng-repeat="disc in discs">
+                            <nb-tracks tracks="disc" showdisc="discs.length > 1" discnum="$index + 1"/>
+                        </div>
+                    </div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+	</div>
+</div>

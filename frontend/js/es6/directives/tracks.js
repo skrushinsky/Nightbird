@@ -4,15 +4,15 @@ angular.module('app').directive('nbTracks', function() {
         <table class="table table-striped">
             <caption ng-if="showdisc">Disc #{{ discnum }}</caption>
             <tr>
-              <th>#</th>
+              <th class="hidden-xs hidden-sm">#</th>
               <th>Name</th>
               <th ng-if="showartist">Artist</th>
-              <th ng-if="showalbum">Album</th>
-              <th>Sec.</th>
+              <th class="hidden-xs hidden-sm" ng-if="showalbum">Album</th>
+              <th class="hidden-xs hidden-sm">Sec.</th>
               <th></th>
             </tr>
             <tr ng-repeat="track in tracks track by track.id">
-                <td><span ng-if="showdisc">{{ track.disc }} - </span>{{ $index + 1 }}.</td>
+                <td class="hidden-xs hidden-sm"><span ng-if="showdisc">{{ track.disc }} - </span>{{ $index + 1 }}.</td>
                 <td>
                     {{ track.name  | limitTo : 30 }}
                     <span ng-if="track.name.length > 30">...</span>
@@ -20,13 +20,13 @@ angular.module('app').directive('nbTracks', function() {
                 <td ng-if="showartist">
                     <a href="/artists/{{ track.artistId }}">{{ track.artistName }}</a>
                 </td>
-                <td ng-if="showalbum">
+                <td class="hidden-xs hidden-sm" ng-if="showalbum">
                     <a href="/albums/{{ track.albumId }}">
                     {{ track.albumName | limitTo : 30 }}
                     <span ng-if="track.albumName.length > 30">...</span>
                     </a>
                 </td>
-                <td>{{ track.playbackSeconds | formatSeconds }}</td>
+                <td class="hidden-xs hidden-sm">{{ track.playbackSeconds | formatSeconds }}</td>
                 <td>
                     <audio controls>
                         <source ng-src="{{ track.previewURL }}" type="audio/mpeg">

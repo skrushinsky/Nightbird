@@ -18,11 +18,16 @@ h4 {
 
 nav {
 	padding-left: 10px;
+	padding-top: 12px;
 }
 
 td {
 	vertical-align: middle !important;
 	white-space: nowrap;
+}
+
+table.details td {
+	white-space: normal;
 }
 
 .navbar-brand {
@@ -86,10 +91,15 @@ div.list-content {
 .list-content h2 {
 	margin-left: 0;
 	margin-right: 0;
-	margin-bottom: 0.5em; 
+	margin-bottom: 0.5em;
 }
 
 .search-result {
 	margin-bottom: 1.4em;
-	border-bottom: 2px dotted gray;
+	/* border-bottom: 2px dotted gray; */
+}
+
+.search-result h4 {
+	margin-bottom: 0 !important;
+	/* border-bottom: 2px dotted gray; */
 }

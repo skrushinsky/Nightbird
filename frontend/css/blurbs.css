@@ -1,65 +1,46 @@
 .blurbs {
-  position: relative;
-  overflow: hidden;
-  width: 90%;
-  height: 90%;
-  margin: auto;
+    position: relative;
+    overflow: hidden;
+    width: 90%;
+    height: 90%;
+    margin: auto;
 }
 
 .blurbs .well {
-  text-align:center;
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  bottom: 0;
-  font-size: 24px;
-  margin-bottom: 0 !important;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin-bottom: 0 !important;
 }
 
-.blurbs .well p {
+.blurbs p {
     margin: 0;
     padding: 0;
-}
-
-.swap-animation.ng-enter, .swap-animation.ng-leave {
-  transition: 1.5s linear all;
+    font-size: 140% !important;
+    font-family: "Times New Roman", Times, serif;
+    font-style: italic;
 }
 
 .swap-animation.ng-enter {
-  top: 0px;
-  left: -300px;
+    transition: 1.5s ease-in all;
+    top: -300px;
 }
+
 .swap-animation.ng-enter-active {
-  top: 0px;
-  left: 0px;
+    top: 0px;
 }
+
 .swap-animation.ng-leave {
-  opacity:1;
+    transition: 0.5s linear all;
+    opacity: 1;
 }
+
 .swap-animation.ng-leave-active {
-  opacity:0;
+    opacity: 0;
 }
-/*
-.swap-animation.ng-enter, .swap-animation.ng-leave {
-  transition: 0.5s linear all;
-}
-.swap-animation.ng-enter {
-  left: -250px;
-  top: 0;
-}
-.swap-animation.ng-enter-active {
-  left: 0;
-  top: 0;
-}
-.swap-animation.ng-leave {
-  left : 0;
-  top: 0;
-}
-.swap-animation.ng-leave-active {
-  left: 250px;
-  top: 0;
-} */
 
 .bg-0 {
     background-color: #f9d5e5;

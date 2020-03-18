@@ -36,6 +36,7 @@ angular.module('app')
         }
     ).factory('getGenre', getObject  => id => getObject('genres', id)
     ).factory('getArtist', getObject => id => getObject('artists', id)
+    ).factory('getAlbum', getObject => id => getObject('albums', id)
     ).factory('fetchObjects', ($q, fetchPath, uniqId) =>
         (path, section) => {
             return fetchPath(path).then(
@@ -43,6 +44,7 @@ angular.module('app')
                 err => $q.reject(err));
         }
     ).factory('fetchAlbums', fetchObjects => path => fetchObjects(path, 'albums')
+    ).factory('fetchReviews', fetchObjects => path => fetchObjects(path, 'reviews')
     ).factory('fetchTracks', fetchObjects => path => fetchObjects(path, 'tracks')
     ).factory('fetchLinks', ($q, $location, fetchUrl, shuffleArray, uniqId, COLOR_CLASSES) =>
         (obj, key, section) => {
