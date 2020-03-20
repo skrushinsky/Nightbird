@@ -1,17 +1,45 @@
-<div ng-controller="AboutController">
-
+<div id="about" ng-controller="AboutController">
 	<div class="jumbotron">
-		<p>Welcome to <b>Nightbird</b> — your guide to modern and classical music!</p>
-
+		<p>
+			<strong>Nightbird</strong> is a guide to modern and classical music,
+			based on <a href="https://us.napster.com/music">Napster</a> online service.
+			With its help it is easy to:
+		</p>
 		<ul>
-			<li>Investigate musical genres</li>
-			<li>Search songs, musicians, composers, albums — famous or little-known </li>
-			<li>Listen to hundreds of audio samples</li>
+			<li>Investigate musical genres: artists, history, mutual influences.</li>
+			<li>Search songs, musicians, composers, albums — from famous to little-known </li>
+			<li>Listen to hundreds of audio samples.</li>
 			<li>Compare dozens of performances of your favourite song</li>
 		</ul>
 	</div>
+	<article class="container">
+		<h2>Quick Start</h2>
 
-	<h2>How do I...</h2>
-	
+		<p>There are two main entry points:</p>
 
+		<h3>Genres hierarchy</h3>
+		<p>Open <a href="/genres">Genres</a> section, find your favorite musical
+			genre in the list,
+			then click <strong>Learn More</strong> button. Proceed studying its subgenres, artists in the genre, or listen audio samples.</li>
+		</p>
+
+		<h3>Direct Search</h3>
+		<p>Type any name in the search field below the site title, e.g.: <i>Deep Purple</i>.
+			In the drop-down list next to the search field select what are you searching for:
+			<i>Artist</i>, <i>Album</i> or <i>Track</i>. Click <strong>Go!</strong> button.
+			After a while you will be redirected to <strong>Search Results</strong> page.
+			The best matches will be ath the top.
+		</p>
+		<p>Tip: if you do not remember exact name, type its part. The search engine will do its best to
+			find what you are looking for.
+		</p>
+	</article>
+	<article class="container">
+		<h2>Frequently Asked Questions</h2>
+
+		<h3>Can I listen to full version of audio tracks instead of short samples?</h3>
+		<p>Sorry, not yet. To do that, you have to be a <a href="https://us.napster.com/music">Napster</a>
+			authorized user. For now, cross-site authorization falls outside the scope of the current project.
+		</p>
+	</article>
 </div>

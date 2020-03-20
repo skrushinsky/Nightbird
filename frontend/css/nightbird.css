@@ -5,30 +5,27 @@ body {
 }
 
 #main {
-	background-color: white;
-	margin-bottom: 1.0em;
-	border-radius: 15px;
-	padding: 30px;
+	margin-bottom: 2.0em;
 }
 
 .nav, .pagination, .carousel, .panel-title a {
 	cursor: pointer;
 }
 
-#main h1, h2, h3, h4 {
+.view h1, h2, h3, h4 {
 	font-family: "Roboto-Bold" !important;
 }
 
-#main h2 {
+.view h2 {
 	font-size: 300% !important;
     margin-top: 0.2em !important;
 }
 
-#main h4 {
+.view h4 {
 	margin-bottom: 1.2em;
 }
 
-#main h3 {
+.view h3 {
     margin-top: 15px !important;
 }
 
