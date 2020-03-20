@@ -2,3 +2,13 @@
 #about {
     font-size: 130%;
 }
+
+#about h2 {
+    font-size: 140% !important;
+    color: gray;
+    margin-top: 0.6em;
+}
+
+#about h3 {
+    font-size: 110% !important;
+}

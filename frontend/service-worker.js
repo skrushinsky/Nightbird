@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nightbird-v1';
+const CACHE_NAME = 'nightbird-v1.0';
 // Caching duration of the items, one week here
 const CACHING_DURATION = 7 * 24 * 3600;
 
@@ -34,6 +34,7 @@ const STATIC_FILES = [
     '/js/controllers/genre/artists.js',
     '/js/controllers/genre/tracks.js',
     '/js/controllers/about.js',
+    '/js/controllers/terms.js',
     '/js/directives/album_details.js',
     '/js/directives/blurbs.js',
     '/js/directives/genres.js',
@@ -60,6 +61,7 @@ const STATIC_FILES = [
     '/views/search/results.html',
     '/views/search/wait.html',
     '/views/about.html',
+    '/views/terms.html',
     '/favicon.ico',
     '/img/genres/01-punk.svg',
     '/img/genres/02-goth.svg',
