@@ -1,8 +1,11 @@
 # NightBird
 
 Nightbird is a guide to modern and classical music, based on
-[Napster](https://us.napster.com/music) online service. With its help it is
-easy to:
+[Napster](https://us.napster.com/music) online service. It is is a PWA application,
+available from address https://nightbird.su.
+
+
+With its help it is easy to:
 
 * Investigate musical genres: artists, history, mutual influences.
 
@@ -14,9 +17,8 @@ easy to:
 
 ## Platform
 
-Nightbird is a PWA application, available from addresshttps://nightbird.su.
 Most of the work is done at the frontend, by [AngularJS](https://angularjs.org/)
-framework.  
+and [Bootstrap 3](https://getbootstrap.com/docs/3.3/) frameworks.  
 
 ## Requirements
 
