@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nightbird-v1.0';
+const CACHE_NAME = 'nightbird-v1.0.0';
 // Caching duration of the items, one week here
 const CACHING_DURATION = 7 * 24 * 3600;
 
@@ -9,6 +9,7 @@ const STATIC_FILES = [
     '/fonts/roboto-fontface/css/roboto/roboto-fontface.css',
     '/css/nightbird.css',
     '/css/wait.css',
+    '/css/about.css',
     '/css/blurbs.css',
     '/js/lib/angular.min.js',
     '/js/lib/angular-animate.min.js',
@@ -53,6 +54,7 @@ const STATIC_FILES = [
     '/views/artist.html',
     '/views/genre.html',
     '/views/navbar.html',
+    '/views/footer.html',
     '/views/artist/albums.html',
     '/views/artist/tracks.html',
     '/views/genre/artists.html',

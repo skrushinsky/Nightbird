@@ -1,9 +1,8 @@
 <div id="about" class="view" ng-controller="AboutController">
 	<ul class="nav nav-pills">
 		<li role="presentation"><a href="#about">About</a></li>
-		<li role="presentation"><a href="#faq">Frequently Asked Questions</a></li>
 		<li role="presentation"><a href="#quick_start">Quick Start</a></li>
-		<li role="presentation"><a href="/terms">Terms And Conditions</a></li>
+		<li role="presentation"><a href="#faq">Frequently Asked Questions</a></li>
 	</ul>
 
 	<div class="jumbotron">
@@ -25,37 +24,20 @@
 		<div class="col-sm-12 col-md-6 col-lg-6">
 			<a name="about"></a>
 			<h2>About</h2>
-			<div class="media">
-	            <div class="media-left media-top">
-	                <img src="/img/me.jpg" height="180">
-	            </div>
-	            <div class="media-body hidden-xs hidden-sm">
-					<p>My name is Sergey Krushinsky. I am a software engineer from Moscow, Russia.
-					This non-commercial project is dedicated to my family and friends who love the
-					music as much as I do.</p>
-	            </div>
-	        </div>
-			<a name="faq"></a>
-			<h2>Frequently Asked Questions</h2>
-			<dl>
-			  <dt>Q:</dt>
-			  <dd>Can I listen to full version of audio tracks instead of short samples?</dd>
-			  <dt>A:</dt>
-			  <dd>Sorry, not yet. To do that, you have to be a <a href="https://us.napster.com/music">Napster</a>
-				authorized user. For now, cross-site authorization is not implemented.</dd>
-			</dl>
-		</div>
-		<div class="col-sm-12 col-md-6 col-lg-6">
+			<p>My name is Sergey Krushinsky. I am a software engineer from Moscow, Russia.
+				This non-commercial project is dedicated to my family and friends who love the music as much as I do.</p>
+
+
 			<a name="quick_start"></a>
 			<h2>Quick Start</h2>
 			<p>There are two main entry points: via Genres and Direct Search.</p>
 
 			<h3>Genres hierarchy</h3>
 			<p>Open <a href="/genres">Genres</a> section, find your favorite musical
-			genre in the list, then click <kbd>Learn More</kbd> button.
-			Proceed studying its subgenres, artists in the genre, or listen audio samples.</p>
+				genre in the list, then click <kbd>Learn More</kbd> button.
+				Proceed studying its subgenres, artists in the genre, or listen audio samples.</p>
 			<p class="small">Tip: <span class="text-muted">Many genres have their sub-genres as well
-			parent genres.</span></p>
+					parent genres.</span></p>
 
 			<h3>Direct Search</h3>
 			<p>Type any name in the search field below the site title, e.g.: <i>Deep Purple</i>.
@@ -65,11 +47,28 @@
 				The best matches will usually be at the top.
 			</p>
 			<p class="small">Tip: <span class="text-muted">if you do not remember exact name, type its part.
-				The search engine will do its best to find what you are looking for.</span>
+					The search engine will do its best to find what you are looking for.</span>
 			</p>
 		</div>
-
-
+		<div class="col-sm-12 col-md-6 col-lg-6">
+			<a name="faq"></a>
+			<h2>Frequently Asked Questions</h2>
+			<dl>
+				<dt>Q:</dt>
+				<dd>Can I listen to full version of audio tracks instead of short samples?</dd>
+				<dt>A:</dt>
+				<dd>Sorry, not yet. To do that, you have to be a <a href="https://us.napster.com/music">Napster</a>
+					authorized user. For now, cross-site authorization is not implemented. I hope, it will be available
+					in the next version. Stay in touch!
+				</dd>
+			</dl>
+			<dl>
+				<dt>Q:</dt>
+				<dd>How do I find covers of my favourite song?</dd>
+				<dt>A:</dt>
+				<dd>Type the song name in the search box. Select "Track" in the drop-down list. Click Click <kbd>Go!</kbd> button.</dd>
+			</dl>
+		</div>
 	</div>
 
 

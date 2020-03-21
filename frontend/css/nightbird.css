@@ -126,3 +126,7 @@ div.list-content {
 	margin-bottom: 0 !important;
 	/* border-bottom: 2px dotted gray; */
 }
+
+#footer .container {
+	margin-bottom: 0 !important;
+}
