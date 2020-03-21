@@ -1,7 +1,7 @@
 # NightBird
 
 Nightbird is a guide to modern and classical music, based on
-[Napster](https://us.napster.com/music) online service. It is is a PWA application,
+[Napster](https://us.napster.com/music) online service. It is a PWA application,
 available from address https://nightbird.su.
 
 
