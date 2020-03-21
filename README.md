@@ -14,14 +14,13 @@ easy to:
 
 ## Platform
 
-Nightbird is a PWA application, available from address (https://nightbird.su).
+Nightbird is a PWA application, available from addresshttps://nightbird.su.
 Most of the work is done at the frontend, by [AngularJS](https://angularjs.org/)
 framework.  
 
-
 ## Requirements
 
-* Node.JS >= 12.14
+* [Node.JS](https://nodejs.org/en/) >= 12.14
 * [Gulp 4](https://gulpjs.com/), installed globally.
 
 Tested on Linux 64-bit, MacOS 10.14 and Windows 10. There should be no problems at other platforms.
@@ -41,4 +40,4 @@ On Windows instead of a single `gulp` command you have to run:
 gulp build
 npm start
 ```   
-Then open your browser and open (http://localhost:3000/)
+Then open your browser and navigate to http://localhost:3000/.
