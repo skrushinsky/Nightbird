@@ -1,6 +1,4 @@
-const CACHE_NAME = 'nightbird-v1.0.2';
-// Caching duration of the items, one week here
-const CACHING_DURATION = 7 * 24 * 3600;
+const CACHE_NAME = 'nightbird-v1.2';
 
 const STATIC_FILES = [
     '/',

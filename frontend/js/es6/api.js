@@ -8,10 +8,19 @@ angular.module('app')
     .constant('COLOR_CLASSES', ['info', 'default', 'primary', 'warning', 'danger'])
     .factory('fetchUrl', ($q, $http, $log, API_ROOT, HEADERS) =>
         url => {
-            $log.debug('Fetching %s...', url);
+            const parsed = new URL(url);
+            let q;
+            if (parsed.search) {
+                q = `${parsed.search}&lang=${LANG}`;
+            } else {
+                q = `?lang=${LANG}`;
+            }
+            let newUrl = `${parsed.origin}${parsed.pathname}${q}`;
+
+            $log.debug('Fetching %s...', newUrl);
             return $http({
                 method: 'GET',
-                url: url,
+                url: newUrl,
                 headers: HEADERS
             }).then(response => {
                 return response.data

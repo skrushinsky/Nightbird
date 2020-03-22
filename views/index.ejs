@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="/css/about.css" />
 	<script>
 		var API_KEY = "<%= api_key %>";
+        var LANG = 'en-US';
 		if ('serviceWorker' in navigator) {
 			console.log('Registering service worker');
 			navigator.serviceWorker.register('/service-worker.js');
