@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Musical guide">
 	<meta name="author" content="Sergey Krushinsky">
-	<!-- <base href="/"> -->
+
 	<title>Nightbird</title>
 	<link rel="manifest" href="/manifest.json">
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
@@ -17,6 +17,7 @@
 	<link rel="stylesheet" href="/css/wait.css" />
     <link rel="stylesheet" href="/css/about.css" />
 	<script>
+		var API_KEY = "<%= api_key %>";
 		if ('serviceWorker' in navigator) {
 			console.log('Registering service worker');
 			navigator.serviceWorker.register('/service-worker.js');

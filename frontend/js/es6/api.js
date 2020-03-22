@@ -3,7 +3,7 @@ angular.module('app')
     .constant('IMG_ROOT', 'https://api.napster.com/imageserver')
     .constant('HEADERS', {
         'Content-Type': 'application/json;charset=utf-8',
-        apikey: 'Y2JmZGI2ZmMtM2RiZC00ZjUwLWEzMzItMGFiYjcyNDJmMjg2'
+        apikey: API_KEY
     })
     .constant('COLOR_CLASSES', ['info', 'default', 'primary', 'warning', 'danger'])
     .factory('fetchUrl', ($q, $http, $log, API_ROOT, HEADERS) =>

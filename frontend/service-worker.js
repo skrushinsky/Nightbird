@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nightbird-v1.0.0';
+const CACHE_NAME = 'nightbird-v1.0.2';
 // Caching duration of the items, one week here
 const CACHING_DURATION = 7 * 24 * 3600;
 
@@ -121,7 +121,8 @@ const STATIC_FILES = [
     '/img/icons/icon-152x152.png',
     '/img/icons/icon-192x192.png',
     '/img/icons/icon-384x384.png',
-    '/img/icons/icon-512x512.png'
+    '/img/icons/icon-512x512.png',
+    '/img/facebook.png'
 ];
 
 

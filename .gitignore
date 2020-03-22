@@ -65,3 +65,5 @@ public/*
 dist/
 
 .DS_Store
+
+.env
