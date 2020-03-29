@@ -48,7 +48,7 @@
                     </div>
                     <div class="media-body">
                         <div ng-repeat="disc in discs">
-                            <nb-tracks tracks="disc" showdisc="discs.length > 1" discnum="$index + 1"/>
+                            <nb-tracks tracks="disc" showdisc="discs.length > 1" discnum="$index + 1" showartist="album.artistName === 'Various Artists'"/>
                         </div>
                     </div>
                 </div>

@@ -5,10 +5,11 @@ angular.module('app').directive('nbAlbumDetails', function() {
             <tr ng-show="album.artistName">
                 <td>Artist:</td>
                 <td>
-                    <a ng-if="album.contributingArtists.primaryArtist" href="/artists/{{album.contributingArtists.primaryArtist}}">
+                    <a ng-if="album.contributingArtists.primaryArtist && album.artistName !== 'Various Artists'"
+                       href="/artists/{{album.contributingArtists.primaryArtist}}">
                         {{ album.artistName }}
                     </a>
-                    <span ng-if="!album.contributingArtists.primaryArtist">
+                    <span ng-if="(!album.contributingArtists.primaryArtist) || album.artistName === 'Various Artists'">
                         {{ album.artistName }}
                     </span>
                 </td>

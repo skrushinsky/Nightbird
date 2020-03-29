@@ -18,7 +18,13 @@ angular.module('app').directive('nbTracks', function() {
                     <span ng-if="track.name.length > 30">...</span>
                 </td>
                 <td ng-if="showartist">
-                    <a href="/artists/{{ track.artistId }}">{{ track.artistName }}</a>
+                    <a ng-if="track.artistName !== 'Various Artists'"
+                       href="/artists/{{ track.artistId }}">
+                       {{ track.artistName }}
+                    </a>
+                    <span ng-if="track.artistName === 'Various Artists'">
+                       {{ track.artistName }}
+                    <span>
                 </td>
                 <td class="hidden-xs hidden-sm" ng-if="showalbum">
                     <a href="/albums/{{ track.albumId }}">
